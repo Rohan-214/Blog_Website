@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Rohan Srivastava",
+    "email": "srivastavarohan214@gmail.com",
+    "phone no": "08318697979",
+    "password": "*rohan123"
+  },
+  {
+    "id": 2,
+    "name": "kaku",
+    "email": "kaku123@gmail.com",
+    "phone no": "8765981560",
+    "password": "*Kaku123"
+  },
+  {
+    "id": 3,
+    "name": "qwe",
+    "email": "qwe@gmail.com",
+    "phone no": "321321213",
+    "password": "qwe123"
+  },
+  {
+    "id": 4,
+    "name": "Utsav",
+    "email": "utsav@gmail.com",
+    "phone no": "9876543210",
+    "password": "123456789"
+  },
+  {
+    "id": 5,
+    "name": "srivastavarohan214@gmail.com",
+    "password": "*rohan123"
+  },
+  {
+    "id": 6,
+    "name": "rohu",
+    "email": "rohu123@gmail.com",
+    "phone no": "2345678",
+    "password": "qwerty1234"
+  },
+  {
+    "id": 7,
+    "name": "vaibhav Srivastava",
+    "email": "vaibhavsriovastava14@gmail.com",
+    "phone no": "123456790",
+    "password": "qwerty123"
+  },
+  {
+    "id": 8,
+    "name": "saksham ",
+    "email": "sak123@gmail.com",
+    "phone no": "123456789",
+    "password": "qwerty1`23"
+  }
+]

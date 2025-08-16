@@ -1,0 +1,90 @@
+{
+  "users": [
+    {
+      "id": "29b4",
+      "name": "Rohan Srivastava",
+      "email": "srivastavarohan214@gmail.com",
+      "phone no": "08318697979",
+      "password": "*rohan123"
+    },
+    {
+      "id": "f4d9",
+      "name": "kaku",
+      "email": "kaku123@gmail.com",
+      "phone no": "8765981560",
+      "password": "*Kaku123"
+    },
+    {
+      "id": "ccd7",
+      "name": "qwe",
+      "email": "qwe@gmail.com",
+      "phone no": "321321213",
+      "password": "qwe123"
+    },
+    {
+      "id": "2a1d",
+      "name": "Utsav",
+      "email": "utsav@gmail.com",
+      "phone no": "9876543210",
+      "password": "123456789"
+    }
+  ],
+  "Contact": [
+    {
+      "id": "1",
+      "email": "qwe@gmail.com",
+      "name": "Rohan Srivastava",
+      "message": "Hello, I am Rohan Srivastava. I am a software developer with a passion for creating innovative solutions. I have experience in web development, mobile app development, and cloud computing. I am always eager to learn new technologies and improve my skills."
+    },
+    {
+      "id": "52fb",
+      "email": "srivastavarohan214@gmail.com",
+      "name": "Rohan",
+      "message": "heyy"
+    },
+    {
+      "id": "56ae",
+      "email": "srivastavarohan214@gmail.com",
+      "name": "rohan kathri",
+      "message": ""
+    },
+    {
+      "id": "80e2",
+      "email": "kakakak@gmail.com",
+      "name": "kakuuuu",
+      "message": "xrcrtyvbyunu ytrexrctvgbh hgvfcdxdcf vgbh"
+    },
+    {
+      "id": "19f2",
+      "email": "bahabah@123",
+      "name": "baha",
+      "message": "asc"
+    }
+  ],
+  "articles": [
+    {
+      "id": "1",
+      "topic": "Technology",
+      "specificTopic": "Artificial Intelligence",
+      "image": "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      "title": "The Future of Technology",
+      "content": "Technology is evolving at an unprecedented pace, shaping the way we live, work, and interact. From artificial intelligence to quantum computing, the future holds immense possibilities. As we embrace these advancements, it's crucial to consider the ethical implications and ensure that technology serves humanity positively. The integration of technology in various sectors, including healthcare, education, and business, will continue to transform our world. Staying informed and adaptable will be key to thriving in this ever-changing landscape."
+    },
+    {
+      "id": "3d5a",
+      "topic": "Technology",
+      "specificTopic": "metaverse",
+      "title": "Elon Musk shows off updates to his brain chips and says he’s going to install one in himself when they are ready",
+      "content": "Elon Musk shows off updates to his brain chips and says he’s going to install one in himself when they are readyElon Musk’s health tech venture Neuralink shared updates to its brain-implant technology during a “show and tell” recruitment event Wednesday night. Musk said during the event that he plans to get one of the implants himself.",
+      "image": "Screenshot 2023-12-09 030159.png"
+    },
+    {
+      "id": "75ea",
+      "topic": "",
+      "specificTopic": "",
+      "title": "",
+      "content": "",
+      "image": ""
+    }
+  ]
+}
