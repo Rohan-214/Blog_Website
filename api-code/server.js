@@ -94,8 +94,12 @@ app.post('/articles', upload_Image.single("image"), (req, res) => {
 });
 app.get('/articles', (req, res) => {
     let articles = [];
+    const topic = req.query.topic;
     if (fs.existsSync('articles.json')) {
         articles = JSON.parse(fs.readFileSync('articles.json', 'utf8'));
+    }
+    if (topic) {
+        articles = articles.filter(article => article.topic === topic);
     }
     res.json(articles);
 });
@@ -111,4 +115,24 @@ app.get('/articles/:id', (req, res) => {
     }
     res.json(article);
 });
+
+app.get('/articles/firstfour/get', (req, res) => {
+    let articles = [];
+
+    if (fs.existsSync('articles.json')) {
+        articles = JSON.parse(fs.readFileSync('articles.json', 'utf8'));
+    }
+    console.log(articles)
+    res.json(articles.slice(0, 4));
+});
+//create a new end points that fetch last four articlescc
+app.get('/articles/lastfour/le', (req, res) => {
+    let articles = [];
+    if (fs.existsSync('articles.json')) {
+        articles = JSON.parse(fs.readFileSync('articles.json', 'utf8'));
+    }
+    res.json(articles.slice(-4));
+});
+
+
 app.listen(5174, () => console.log('Server running on port 5174'));

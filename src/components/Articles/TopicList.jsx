@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-function TopicList({topic}){
+ function TopicList({topic,onclick}){
+
+//     const [filtertopic, setfiltertopic] = useState([])
+
+//     useEffect(() => {
+    
+//             const loadArticle = async () => {
+//                 const articleData = await fetchArticlesByTopic(onclick);
+//                 setfiltertopic(articleData)
+//                 console.log(articleData)
+//             };
+//             loadArticle();
+//         }, []);
     return(
         <>
-        <button  className="text-xl px-5 text-gray-500">{topic}</button>
+        <div  className="text-xl px-5 text-gray-500">{topic}</div>
         </>
     );
 }

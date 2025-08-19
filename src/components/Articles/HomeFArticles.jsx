@@ -18,6 +18,7 @@ function HomeFArticles() {
     // const [filteredarticle, setFilteredarticle] = useState([]);
     const [user, setuser] = useState({})
     const [alluser, setalluser] = useState([])
+    const [topic, settopic] = useState("")
 
 
     // const filterByTopic = (topic) => {
@@ -32,12 +33,12 @@ function HomeFArticles() {
     useEffect(() => {
 
         const loadArticle = async () => {
-            const articleData = await fetchAllArticles();
+            const articleData = await fetchAllArticles(topic);
             setArticle(articleData)
 
             const uData = await fetchAllUsers();
             setalluser(uData)
-            
+
             // const exceptAllUser = [ ...new Set (uData.map(a => a.id).filter())]
 
             const uniqueUserIds = [...new Set(articleData.map(a => a.userid).filter(Boolean))];
@@ -51,7 +52,7 @@ function HomeFArticles() {
 
         loadArticle();
 
-    }, []);
+    }, [topic]);
 
 
     return (
@@ -62,11 +63,13 @@ function HomeFArticles() {
                     <div className=" text-6xl font-bold text-blue-700">For you</div>
                     <input className="border mt-5 px-2  rounded-full " type="text" placeholder="0, search Articles" />
                     <div className="flex  gap-5 mt-5 ">
-                        <TopicList topic="All" />
-                        <TopicList topic="Technology" />
-                        <TopicList topic="Environment" />
-                        <TopicList topic="Business" />
-                        <TopicList topic="Health" />
+
+                        <button onClick={() => settopic("")} > <TopicList topic="All" /></button>
+                        <button onClick={() => settopic("Technology")} ><TopicList topic="Technology" /></button>
+                        <button onClick={() => settopic("Lifestyle")}  ><TopicList topic="Lifestyle" /></button>
+                        <button onClick={() => settopic("Business")}  ><TopicList topic="Business" /></button>
+                        <button onClick={() => settopic("Health")}   ><TopicList topic="Health" /></button>
+                        <button onClick={() => settopic("Education")}   ><TopicList topic="Education" /></button>
                     </div>
                     <div className="mt-5 flex flex-col gap-5 ">
                         {article.map((art, ind) =>

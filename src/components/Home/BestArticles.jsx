@@ -1,56 +1,78 @@
-import React from "react";
-import Dotdesign from "../../Dotdesign";
+import React, { useEffect, useState } from "react";
 import BestArticlesTopic from "./BestArticlesTopics";
 import { Link } from "react-router-dom";
+import { fetchUser } from "../../services/users.service";
+import { fetchFirstFourArticles, fetchLastFourArticles } from "../../services/articles.service";
+
+function BestArticles() {
+
+    const [articles, setarticles] = useState([]);
+    const [user, setuser] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
 
-const likes = 32;
-const comment = 12;
+    useEffect(() => {
+        const loadArticle = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const articleData = await fetchFirstFourArticles();
+                //console.log(fetchFirstFourArticles())
+                if (articleData) {
+                    setarticles(articleData);
+                    if (articleData.length > 0) {
+                        const uniqueUserIds = [...new Set(articleData.map(a => a.userid).filter(Boolean))];
+                        const usersData = {};
+                        for (let id of uniqueUserIds) {
+                            usersData[id] = await fetchUser(id);
+                        }
+                        setuser(usersData);
+                    }
+                } else {
+                    // This case handles when the service returns null (e.g., on a 404 or network error)
+                    setError("Could not fetch articles. The server might be down or the endpoint is not found.");
+                }
+            } catch (error) {
+                console.error("Failed to load articles:", error);
+                setError("An unexpected error occurred while loading articles.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadArticle();
+    }, []);
 
-function BestArticles(){
-    return(
+
+
+
+    return (
         <div className="flex justify-center  h-screen items-center bg-gradient-to-br from-blue-700 to-purple-500">
-            {/* <Dotdesign top="top-[-40%] left-[20%] w-15 border-12 bg-none border-white  h-15 -rotate-20" />
-            <Dotdesign top="top-[-30%] left-[80%] w-70 border-12 bg-none border-white  h-15 -rotate-145" />
-            <Dotdesign top="top-[40%] left-[5%] w-45  border-12 bg-none border-white  h-15 -rotate-95" />
-            <Dotdesign top="top-[10%] left-[-6%] w-45 border-12 bg-none border-white  h-15 -rotate-25" />
-            <Dotdesign top="top-[30%] left-[70%] w-45 border-12 bg-none border-white  h-15 -rotate-45" />
-            <Dotdesign top="top-[40%] left-[40%] w-45 border-12 bg-none border-white  h-15 -rotate-45" /> */}
-            <div className="flex gap-5">    
+            <div className="flex gap-5">
                 <div>
                     <div className="text-8xl font-semibold mb-8">
-                        Best <span className="text-white"><br/>Article<br/></span>Today
+                        Best <span className="text-white"><br />Article<br /></span>Today
                     </div>
                     <Link to="/articles" className="bg-white text-blue-500 rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold ">See All Articles</Link>
-                
-                </div> 
-                
-                <BestArticlesTopic 
-                    photo="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTFCiOti_YR4FJv2Ahx7m9S3bFpbEjgC07LjhIxicmNInZ6SlmR"
-                    title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                    description="when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
-                    uploadTime="10 hour ago"
-                />
-                <BestArticlesTopic 
-                    photo="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTFCiOti_YR4FJv2Ahx7m9S3bFpbEjgC07LjhIxicmNInZ6SlmR"
-                    title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                    description="when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
-                    uploadTime="10 hour ago"
-                />
-                <BestArticlesTopic 
-                    photo="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTFCiOti_YR4FJv2Ahx7m9S3bFpbEjgC07LjhIxicmNInZ6SlmR"
-                    title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                    description="when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
-                    uploadTime="10 hour ago"
-                />
-                <BestArticlesTopic 
-                    photo="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTFCiOti_YR4FJv2Ahx7m9S3bFpbEjgC07LjhIxicmNInZ6SlmR"
-                    title="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-                    description="when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"
-                    uploadTime="10 hour ago"
-                />
-                
-            </div>     
+
+                </div>
+
+
+
+                {loading && <p className="text-white text-2xl">Loading articles...</p>}
+                {error && <p className="text-red-300 text-2xl">{error}</p>}
+                {!loading && !error && articles.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
+                {!loading && !error && articles.map((article) =>
+                    <BestArticlesTopic
+                        key={article.id}
+                        photo={article.image}
+                        uploadTime={article.time}
+                        title={article.title}
+                        description={article.content}
+                        id = {article.id}
+                    />
+                )}
+            </div>
         </div>
     );
 }

@@ -7,8 +7,10 @@ import { faHeart as fasheart} from '@fortawesome/free-solid-svg-icons';
 import { faMessage as farmessage} from '@fortawesome/free-regular-svg-icons';
 import LikeButton from "../Buttons/LikeButton";
 import { Link, useParams } from "react-router-dom";
+import { fetchAllArticles } from "../../services/articles.service";
+import { fetchUser } from "../../services/users.service";
 
-function BestArticlesTopic ({photo, title, description, uploadTime, }) {
+function BestArticlesTopic ({photo, title, description, uploadTime, id }) {
 
     const [isliked, setisliked] = useState(false);
     const [countLikes, setcountLikes] = useState(0)
@@ -19,22 +21,13 @@ function BestArticlesTopic ({photo, title, description, uploadTime, }) {
     }
     
     const comment = 24;
+    // const {id} = useParams();
 
-
-
-
-    
-    const {id} = useParams();
-
-
-    const [article, setArticle] = useState('');
-
-    useEffect(() => {
-        setArticle(id)
-    }, [id]);
-
-    if (!article) return <p>Loading...</p>;
-
+    // useEffect(() => {
+    //     setArticle(id)
+    //     console.log(article)
+    // }, [id]);
+    // if (!article) return <p>Loading...</p>;
 
 
     return (

@@ -1,6 +1,7 @@
 import React from "react"; 
 import TopicsPanel from "../Articles/TopicsPanal"; 
 
+
 function MainTopicPanal({ topicPhoto, content, userPhoto, userName, topicName }) {
     return(
         <>
