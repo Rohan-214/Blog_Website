@@ -35,7 +35,7 @@ function Contact(){
   
 
         <>  
-            <Navbar/>
+        
             <div className="h-screen flex items-center bg-gray-200 justify-center" >
                 <div className="bg-white flex flex-col p-8 rounded-3xl " >
                     <h1 className="text-3xl w-120 font-bold text-center bg-gradient-to-br from-blue-700 to-purple-700 bg-clip-text text-transparent  ">Contact Us</h1>

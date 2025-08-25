@@ -21,41 +21,22 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem('isAuthh') === 'true';
   });
-
   useEffect(() => {
     const handleStorageChange = () => {
       setIsAuthenticated(localStorage.getItem('isAuthh') === 'true');
   };
   window.addEventListener('storage', handleStorageChange);
-  //console.log("working ")
   return () => {
     window.removeEventListener('storage', handleStorageChange);
-    //console.log(" not working ")
   };
 }, []);
-//console.log(isAuthenticated);
-
-
-
   const handleLogin = () => {
     setIsAuthenticated(true);
-    console.log("lalal land")
     localStorage.setItem('isAuthh', 'true');
-    // localStorage.setItem('loginTime', Date.now().toString());
   };
-
-
-
   const handleLogout = () => {
     setIsAuthenticated(false);
-    console.log("hello world is it");
-    //localStorage.removeItem('isAuthh');
-    //localStorage.removeItem('userid');
-    // localStorage.setItem('isAuthh', 'false');
   };
-
-
-
   return (
     <>
       <BrowserRouter>

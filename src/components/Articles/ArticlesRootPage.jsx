@@ -53,7 +53,7 @@ function ArticlesRootPage() {
 
     return (
         <>
-            <Navbar />
+         
             <div className="flex gap-50 p-20 bg-gray-200">
                 <div className="p-10 flex flex-col gap-5 w-100">
                     <MainTopicPanal />

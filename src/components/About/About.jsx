@@ -9,7 +9,7 @@ function About(){
     
     return(
         <div className="bg-gray-200 h-full " >   
-            <Navbar/>
+        
             <div className="flex gap-1 flex-wrap">
             <AboutContent
                 title="About Us"

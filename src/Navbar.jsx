@@ -3,41 +3,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faMagnifyingGlass as fam } from "@fortawesome/free-solid-svg-icons";
 import { Link, Links, useLocation, useNavigate } from "react-router-dom";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-
-
-function Navbar({ handleLogout, isAuthenticated  }) {
+function Navbar({ handleLogout, isAuthenticated }) {
     const navigate = useNavigate();
     const location = useLocation();
     const [showUserBox, setShowUserBox] = useState(false);
     const userid = localStorage.getItem('userid');
-
-
-
-
-
-
     const logoutuser = () => {
-     //   if(isAuthenticated) !isAuthenticated 
-     console.log("hehehe")
-     console.log(isAuthenticated)
         handleLogout();
-        console.log(isAuthenticated)
         localStorage.removeItem('userid');
-        //isAuthenticated = !isAuthenticated;
-         console.log("i am working")
-        // console.log(isAuthenticated)
-        
         localStorage.removeItem('isAuthh');
         alert("You have been logged out.");
         navigate("/login");
     };
-
-
-
-
-
     const hideLogout = location.pathname === "/login" || location.pathname === "/signup";
-
     return (
         <>
             <div className={` mx-auto px-4 py-3 flex justify-around fixed right-0 left-0 w-full z-50 backdrop-blur-md }`}>
@@ -61,7 +39,7 @@ function Navbar({ handleLogout, isAuthenticated  }) {
                                     <div className="text-gray-600 text-sm">Profile, Settings, etc.</div>
 
                                     {(<Link to="/login" className="bg-gradient-to-tr mt-2  from-purple-600 to-blue-500 rounded-xl p-1 text-white" >LogIn</Link>)}
-                                    <button className="bg-gradient-to-tr mt-2  from-purple-600 to-blue-500 rounded-xl p-1 text-white" onClick={()=>logoutuser()}>Logout</button>
+                                    <button className="bg-gradient-to-tr mt-2  from-purple-600 to-blue-500 rounded-xl p-1 text-white" onClick={() => logoutuser()}>Logout</button>
                                 </div>
                             )}
                         </div>

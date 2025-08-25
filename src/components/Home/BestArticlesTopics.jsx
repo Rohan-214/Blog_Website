@@ -34,11 +34,11 @@ function BestArticlesTopic ({photo, title, description, uploadTime, id }) {
         <>
             <div>
                 <div className="w-64 h-110 bg-white rounded-2xl ">
-                    <img className="rounded-t-2xl" src={photo} alt="" />
-                    <div className="p-2">
-                        <h1 className="font-bold ">{title}</h1>
-                        <p>{description} </p>
-                        <div className="flex justify-between h-20 items-end ">
+                    <img className="rounded-t-2xl h-1/3" src={photo} alt="" />
+                    <div className="p-2 h-2/3 ">
+                        <h1 className="font-bold p-0.5">{title}</h1>
+                        <p className="line-clamp-6 p-0.5">{description} </p>
+                        <div className="flex justify-between h-20 pb-2 items-end ">
                             <div>
                                 <p className="text-gray-500 text-sm ">{uploadTime}</p>
                                 <div className="flex gap-2 pl-2 ">

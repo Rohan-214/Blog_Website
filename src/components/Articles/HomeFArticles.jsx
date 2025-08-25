@@ -9,61 +9,42 @@ import Footer from "../../Footer";
 import { useParams } from "react-router-dom";
 import { fetchAllArticles, fetchArticle } from "../../services/articles.service";
 import { fetchAllUsers, fetchUser } from "../../services/users.service";
-
-
 function HomeFArticles() {
-
-
     const [article, setArticle] = useState([]);
-    // const [filteredarticle, setFilteredarticle] = useState([]);
     const [user, setuser] = useState({})
     const [alluser, setalluser] = useState([])
     const [topic, settopic] = useState("")
-
-
-    // const filterByTopic = (topic) => {
-    //     const result = article.filter(article =>
-    //         article.topic.toLowerCase().includes(topic.toLowerCase())
-    //     );
-    //     setFilteredarticle(result);
-    // };
-
-
-
+    const [filteredId, setfilteredId] = useState([])
+    const currentuserid = localStorage.getItem("userid");
     useEffect(() => {
-
         const loadArticle = async () => {
             const articleData = await fetchAllArticles(topic);
             setArticle(articleData)
-
             const uData = await fetchAllUsers();
             setalluser(uData)
-
-            // const exceptAllUser = [ ...new Set (uData.map(a => a.id).filter())]
-
-            const uniqueUserIds = [...new Set(articleData.map(a => a.userid).filter(Boolean))];
-
+            const filtered = uData.filter(u => Number(u.id) !== Number(currentuserid));
+            setfilteredId(filtered);
+            console.log(filtered);
+            const uniqueUserIds = [...new Set
+                (articleData
+                    .map(a => a.userid)
+                    .filter(Boolean)
+                )];
             const usersData = {};
             for (let id of uniqueUserIds) {
                 usersData[id] = await fetchUser(id);
             }
             setuser(usersData);
         };
-
         loadArticle();
-
     }, [topic]);
-
-
     return (
         <>
-            <Navbar />
             <div className="flex p-30 px-100  justify-center h-full gap-10 bg-gray-200 ">
                 <div className="">
                     <div className=" text-6xl font-bold text-blue-700">For you</div>
                     <input className="border mt-5 px-2  rounded-full " type="text" placeholder="0, search Articles" />
                     <div className="flex  gap-5 mt-5 ">
-
                         <button onClick={() => settopic("")} > <TopicList topic="All" /></button>
                         <button onClick={() => settopic("Technology")} ><TopicList topic="Technology" /></button>
                         <button onClick={() => settopic("Lifestyle")}  ><TopicList topic="Lifestyle" /></button>
@@ -85,13 +66,11 @@ function HomeFArticles() {
                                 visibility="block"
                                 forclass="flex-col"
                                 article_id={art.id}
-
                             />
                         )}
                     </div>
                 </div>
                 <div>
-
                     <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5  w-120 " >
                         <div className=" text-2xl font-semibold">Trending</div>
                         <Trends
@@ -124,15 +103,13 @@ function HomeFArticles() {
                     </div>
                     <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5 mt-5  w-120">
                         <div className=" text-2xl font-semibold">Recommended Users</div>
-                        {alluser.map((user, ind) =>
-                            <RecommendedUser key={ind}
-                                username={user.name}
-                                userphoto="https://t4.ftcdn.net/jpg/05/31/27/67/360_F_531276723_WVWlANKtDQmwSxwW5P2Yn4hngudDeCSg.jpg"
-                            />
+                        {filteredId.map((user, ind) =>
+
+                        (<RecommendedUser key={ind}
+                            username={user.name}
+                            userphoto="https://t4.ftcdn.net/jpg/05/31/27/67/360_F_531276723_WVWlANKtDQmwSxwW5P2Yn4hngudDeCSg.jpg"
+                        />)
                         )}
-
-
-
                     </div>
                 </div>
             </div>
@@ -140,5 +117,4 @@ function HomeFArticles() {
         </>
     );
 }
-
 export default HomeFArticles;
