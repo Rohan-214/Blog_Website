@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import HomeSliderImages from './components/Home/HomeSliderImages';
 import HomeSlider from './components/Home/HomeSlider';
@@ -48,7 +48,7 @@ function App() {
   };
   return (
     <>
-      <BrowserRouter>
+      <HashRouter>
         <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
         <SessionTimeout timeout={24 * 60 * 1000} onTimeout={sessionExpired} /> 
         <Routes>
@@ -65,7 +65,7 @@ function App() {
             <Route path="/addArticles" element={<AddArticles />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }

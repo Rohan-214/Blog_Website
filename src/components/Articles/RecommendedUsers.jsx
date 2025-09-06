@@ -6,7 +6,6 @@ function RecommendedUser({ username, userphoto, userid }) {
     const [isclicked, setisclicked] = useState(false)
 
 
-
     useEffect(() => {
         axios.get(`http://localhost:5174/userfollow?myid=${myid}&userid=${userid}`)
             .then(res => {
