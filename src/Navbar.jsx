@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faMagnifyingGlass as fam } from "@fortawesome/free-solid-svg-icons";
 import { Link, Links, useLocation, useNavigate } from "react-router-dom";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { fetchUser } from "./services/users.service";
 function Navbar({ handleLogout, isAuthenticated }) {
     const navigate = useNavigate();
     const location = useLocation();
     const [showUserBox, setShowUserBox] = useState(false);
+    
     const userid = localStorage.getItem('userid');
     const logoutuser = () => {
         handleLogout();
@@ -16,6 +18,18 @@ function Navbar({ handleLogout, isAuthenticated }) {
         navigate("/login");
     };
     const hideLogout = location.pathname === "/login" || location.pathname === "/signup";
+    
+    const [user, setuser] = useState({})
+    useEffect(() => {
+        const loadUser = async () => {  
+            if (userid) {
+                const userData = await fetchUser(userid);
+                setuser(userData);
+            }
+        };
+        loadUser();
+    }, [userid]);
+
     return (
         <>
             <div className={` mx-auto px-4 py-3 flex justify-around fixed right-0 left-0 w-full z-50 backdrop-blur-md }`}>
@@ -34,11 +48,12 @@ function Navbar({ handleLogout, isAuthenticated }) {
                                 <FontAwesomeIcon icon={faUser} />
                             </button>
                             {showUserBox && (
-                                <div className="absolute right-0 mt-2 w-48 flex flex-col bg-white rounded shadow-lg p-4 z-50">
-                                    <div className="text-gray-800 font-semibold mb-2">{userid}</div>
-                                    <div className="text-gray-600 text-sm">Profile, Settings, etc.</div>
+                                <div className="absolute right-0 mt-2  flex flex-col bg-white rounded-lg shadow-lg p-4 z-50">
+                                    <div className="text-gray-800 font-semibold mb-2"> ID : {userid}</div>
+                                    <div className="text-gray-600 text-sm">{user.name}</div>
+                                    <div className="text-gray-600 text-sm">{user.email}</div>
 
-                                    {(<Link to="/login" className="bg-gradient-to-tr mt-2  from-purple-600 to-blue-500 rounded-xl p-1 text-white" >LogIn</Link>)}
+                                    {!isAuthenticated && (<Link to="/login" className="bg-gradient-to-tr mt-2  text-center from-purple-600 to-blue-500 rounded-xl p-1 text-white" >LogIn</Link>)}
                                     <button className="bg-gradient-to-tr mt-2  from-purple-600 to-blue-500 rounded-xl p-1 text-white" onClick={() => logoutuser()}>Logout</button>
                                 </div>
                             )}

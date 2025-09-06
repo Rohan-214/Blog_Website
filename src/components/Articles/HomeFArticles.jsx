@@ -24,7 +24,7 @@ function HomeFArticles() {
             setalluser(uData)
             const filtered = uData.filter(u => Number(u.id) !== Number(currentuserid));
             setfilteredId(filtered);
-    
+
             const uniqueUserIds = [...new Set
                 (articleData
                     .map(a => a.userid)
@@ -101,7 +101,7 @@ function HomeFArticles() {
                             uploaded="12 hours"
                         />
                     </div> */}
-                    <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5 mt-5  w-120">
+                    <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5 mt-42  w-120">
                         <div className=" text-2xl font-semibold">Recommended Users</div>
                         {filteredId.map((user, ind) =>
 
