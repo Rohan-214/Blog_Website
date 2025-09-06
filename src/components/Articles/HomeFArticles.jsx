@@ -105,10 +105,14 @@ function HomeFArticles() {
                         <div className=" text-2xl font-semibold">Recommended Users</div>
                         {filteredId.map((user, ind) =>
 
-                        (<RecommendedUser key={ind}
+                        (<RecommendedUser 
+                            key={ind}
+                            userid= {user.id}
                             username={user.name}
                             userphoto="https://t4.ftcdn.net/jpg/05/31/27/67/360_F_531276723_WVWlANKtDQmwSxwW5P2Yn4hngudDeCSg.jpg"
+                            
                         />)
+
                         )}
                     </div>
                 </div>

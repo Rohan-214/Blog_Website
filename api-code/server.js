@@ -212,10 +212,30 @@ app.post('/userfollow', (req,res) => {
             userfollow = [];
         }
     }
+    const existingFollowIndex = userfollow.findIndex(follow => String(follow.myid) === String(followData.myid) && String(follow.userid) === String(followData.userid));
+    if (existingFollowIndex !== -1) {
+        userfollow[existingFollowIndex] = { ...userfollow[existingFollowIndex], ...followData };
+    }
+    else {
     userfollow.push({ id: userfollow.length + 1, ...followData });
+    }
     fs.writeFileSync('userfollow.json', JSON.stringify(userfollow, null,2));
     res.status(201).json({message: 'Message saved to userfollow.json'});    
-
 })
+app.get('/userfollow', (req, res) => {
+    let userfollow = [];    
+    if (fs.existsSync('userfollow.json')) {
+        userfollow = JSON.parse(fs.readFileSync('userfollow.json', 'utf8'));
+    }   
+    const { userid, myid } = req.query;
+    let filteredfollow = userfollow;
+    if (userid) {
+        filteredfollow = filteredfollow.filter(userfollow => String(userfollow.userid) === String(userid));
+    }   
+    if (myid) {
+        filteredfollow = filteredfollow.filter(userfollow => String(userfollow.myid) === String(myid));
+    }   
+res.json({filteredfollow});   
+});
 
 app.listen(5174, () => console.log('Server running on port 5174'));

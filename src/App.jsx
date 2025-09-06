@@ -50,7 +50,7 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
-        <SessionTimeout timeout={1 * 60 * 1000} onTimeout={sessionExpired} /> 
+        <SessionTimeout timeout={24 * 60 * 1000} onTimeout={sessionExpired} /> 
         <Routes>
           <Route path='/' element={<HomeRootPage />} />
           <Route path='/login' element={<Loginpage handleLogin={handleLogin} />} />
