@@ -1,0 +1,43 @@
+[
+  {
+    "userphoto": "",
+    "content": "ello",
+    "articleid": "1"
+  },
+  {
+    "userphoto": "",
+    "content": "hello",
+    "articleid": "1"
+  },
+  {
+    "userphoto": "",
+    "content": "huu",
+    "articleid": "7"
+  },
+  {
+    "username": "Rohan Srivastava",
+    "userphoto": "",
+    "emailid": "srivastavarohan214@gmail.com",
+    "content": "hello",
+    "articleid": "20"
+  },
+  {
+    "username": "Unknown Author",
+    "userphoto": "",
+    "content": "uhwe",
+    "articleid": "1"
+  },
+  {
+    "username": "Unknown Author",
+    "userphoto": "",
+    "content": "",
+    "articleid": "1"
+  },
+  {
+    "username": "Rohan Srivastava",
+    "userphoto": "",
+    "emailid": "srivastavarohan214@gmail.com",
+    "content": "HELLO",
+    "articleid": "20"
+  }
+]

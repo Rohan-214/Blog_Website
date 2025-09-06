@@ -1,10 +1,7 @@
 import react, { useEffect, useState } from 'react';
 import TopicName from '../Articles/TopicName';
 import { Link } from 'react-router-dom';
-
 function AddArticles() {
-
-    //    const [userName, setuserName] = useState("");
     const now = new Date();
     const [selectedTopic, setSelectedTopic] = useState("");
     const [specificTopic, setSpecificTopic] = useState("");
@@ -14,47 +11,13 @@ function AddArticles() {
     const [userImage, setuserImage] = useState(null);
     const uploadTime = new Date().toISOString();
     const dayName = now.toLocaleString("en-US", { weekday: "long" });
-
     const id = localStorage.getItem('userid');
-
     const handleImageChange = (e) => {
         setImageFile(e.target.files[0]);
     };
-
-
-
-
-    //     useEffect(() => {
-    //     if (!id) return;
-
-    //     const fetchUsername = async () => {
-    //       try {
-    //         const res = await fetch(`http://localhost:5174/users/${id}`);
-    //         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
-    //         const data = await res.json();
-
-    //         // If API returns an object like { id: 1, username: "Rohan" }
-    //         setuserName(data.username);
-
-    //         } catch (err) {
-    //             console.error("Error fetching username:", err);
-    //         }
-    //     };
-
-    //         fetchUsername();
-    //    }, [id]);
-
-
-
-
     const topics = ["Lifestyle", "Technology", "Health", "Business", "Education"];
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Prepare the article object
-
         const formData = new FormData();
         formData.append("topic", selectedTopic);
         formData.append("specificTopic", specificTopic);
@@ -65,16 +28,11 @@ function AddArticles() {
         formData.append("time", uploadTime);
         formData.append("day", dayName);
         formData.append("user_Image", userImage ? userImage.name : "")
-
-
-
-
         // Send POST request to json-server
         const res = await fetch("http://localhost:5174/articles", {
             method: "POST",
             body: formData,
         });
-
         if (res.ok) {
             alert("Article submitted!");
             // Reset form
@@ -154,7 +112,6 @@ function AddArticles() {
                         </div>
                     </div>
                 </div>
-
             </div>
             <div className='flex justify-around px-20 py-5'>
                 <div >
@@ -164,10 +121,7 @@ function AddArticles() {
                     <button type="submit" className=' bg-gradient-to-tr from-blue-500 to-purple-500 text-white px-5 py-2 rounded-full text-xl font-semibold'>Submit</button>
                 </div>
             </div>
-
-
         </form>
     )
 };
-
 export default AddArticles;

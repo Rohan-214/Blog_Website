@@ -2,6 +2,11 @@ import React from "react";
 import Dotdesign from "../../Dotdesign";
 
 function SubscribePage () {
+
+    const alertfunction = () => {
+        alert("functionality not available yet");
+    }
+
     return (
         <>
             <div className="flex justify-center items-center h-screen bg-gray-200">
@@ -17,10 +22,10 @@ function SubscribePage () {
                         <div className="p-10  items-center">
                             <div className="text-6xl font-bold">Subscribe</div>
                             <div className="pt-5 text-2xl">Subscribe to our newsletter and get upto 40% off on our exclusive service.</div>
-                            <div className="flex border-3 mt-10 rounded-xl border-purple-500">
+                            <form className="flex border-3 mt-10 rounded-xl border-purple-500">
                                 <input className="w-full px-2 focus:outline-none " type="email" placeholder="Email Address" />
-                                <div className="bg-purple-500 p-2 py-3 text-white ">Subscribe</div>
-                            </div>
+                                <button onClick={alertfunction} className="bg-purple-500 p-2 py-3 text-white ">Subscribe</button>
+                            </form>
                         </div>
                     </div>        
                 </div>

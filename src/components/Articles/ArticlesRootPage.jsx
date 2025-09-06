@@ -20,35 +20,32 @@ import { fetchUser } from "../../services/users.service";
 
 
 function ArticlesRootPage() {
+    console.log("ArticlesRootPage")
 
     const { id } = useParams();
-    const { userid } = useParams();
+    // const { userid } = useParams();
 
     const [user, setuser] = useState({})
 
     const [article, setArticle] = useState({});
 
     useEffect(() => {
-        if (!id) return;
+        if (id == undefined || id == null) return;
 
         const loadArticle = async () => {
             const articleData = await fetchArticle(id);
-            setArticle(articleData);
-
             if (articleData?.userid) {
                 const userData = await fetchUser(articleData.userid);
+                setArticle(articleData);
                 setuser(userData);
             }
         };
-
-
-
         loadArticle();
     }, [id]);
 
+    
 
     if (!article) return <p>Loading...</p>;
-
 
 
     return (
@@ -58,22 +55,23 @@ function ArticlesRootPage() {
                 <div className="p-10 flex flex-col gap-5 w-100">
                     <MainTopicPanal />
 
-                    <TrendingPanel />
-                    <Recommend />
+                    {/* <TrendingPanel /> */}
+                    {/* <Recommend /> */}
 
-                    <MainCommentPanal />
+                    <MainCommentPanal id={id} name ={user.name || user.username || "Unknown Author"} email = {user.email}/>
+                    
+
                 </div>
                 <div className="w-200 py-10">
                     <MainPanal
+                        article_id = {id}
                         userphoto="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2017_45/2216056/171106-latinx-02-latino-1021.jpg"
                         userName={user.name || user.username || "Unknown Author"}
                         title={article.title}
                         publishedDetails={`PUBLISHED ON ${article.day} ${article.time}`}
-
                         description=" Neuralink logo displayed on a phone screen, a silhouette of a paper in shape of a human face and a binary code
                             displayed on a screen are seen in this multiple exposure illustration photo taken in Krakow, Poland on December 10, 2021."
                         content={article.content}
-
                         topicPhoto={article.image}
                     />
                 </div>

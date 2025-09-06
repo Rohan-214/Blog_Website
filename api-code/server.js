@@ -49,12 +49,6 @@ app.get('/users/:id', (req, res) => {
     }
     res.json(user);
 });
-
-
-
-
-
-
 /**   end point for contact      */
 app.post('/contact', (req, res) => {
     const contactData = req.body;
@@ -139,6 +133,89 @@ app.get('/articles/lastfour/le', (req, res) => {
     }
     res.json(articles.slice(-4));
 });
+/** end point for comments  */
+app.post('/comments', (req, res) => {
+    const commentsData = req.body;
+    let comments = [];
+    if (fs.existsSync('comments.json')) {
+        try {
+            comments = JSON.parse(fs.readFileSync('comments.json', 'utf8'));
+        } catch (e) {
+            console.error("Error reading comments.json:", e);
+            comments = [];
+        }
+    }
+    comments.push(commentsData);
+    fs.writeFileSync('comments.json', JSON.stringify(comments, null, 2));
+    res.status(201).json({ message: 'Message saved to comments.json' });
+});
+app.get('/comments', (req, res) => {
+    let comments = [];
+    if (fs.existsSync('comments.json')) {
+        comments = JSON.parse(fs.readFileSync('comments.json', 'utf8'));
+    }
+    res.json(comments);
+});
+/** end point for Likes  */
+app.post('/postLike', (req,res) => {   
+    const likeData = req.body;
+    let likes = [];
+    if( fs.existsSync('postLike.json')){
+        try{
+            likes = JSON.parse(fs.readFileSync('postLike.json','utf8'));
+        }catch(e){
+            console.error("Error reading postLike.json:", e);
+            likes = [];
+        }   
+    }
+    // fetch existing like by userid and articleid
+    const existingLikeIndex = likes.findIndex(like => String(like.userid) === String(likeData.userid) && String(like.articleid) === String(likeData.articleid));
+    if (existingLikeIndex !== -1) {
+        // Update existing like
+        likes[existingLikeIndex] = { ...likes[existingLikeIndex], ...likeData };
+    }
+    else {
+        // Add new like
+        likes.push({ id: likes.length + 1, ...likeData });
+    }  
+    fs.writeFileSync('postLike.json', JSON.stringify(likes, null,2));
+    res.status(201).json({message: 'Message saved to postLike.json'}); 
+});
+    // GET endpoint to fetch likes based on articleid and userid
+app.get('/postLike', (req, res) => {
+    let likes = [];
+    if (fs.existsSync('postLike.json')) {
+        likes = JSON.parse(fs.readFileSync('postLike.json', 'utf8'));
+    }
+    const { articleid, userid } = req.query;
+    let filteredLikes = likes;
+    if (articleid) {
+        filteredLikes = filteredLikes.filter(like => String(like.articleid) === String(articleid));
+    }
+    if (userid) {
+        filteredLikes = filteredLikes.filter(like => String(like.userid) === String(userid));
+    }
+    let totalLikes = likes.filter(
+        like => String(like.articleid) === String(articleid) && like.isliked
+    ).length;
+res.json({filteredLikes, totalLikes});
+    
+});
+app.post('/userfollow', (req,res) => {
+    const followData = req.body;
+    let userfollow = [];
+    if( fs.existsSync('userfollow.json')){
+        try{
+            userfollow = JSON.parse(fs.readFileSync('userfollow.json','utf8'));
+        }catch(e){
+            console.error("Error reading userfollow.json:", e);
+            userfollow = [];
+        }
+    }
+    userfollow.push({ id: userfollow.length + 1, ...followData });
+    fs.writeFileSync('userfollow.json', JSON.stringify(userfollow, null,2));
+    res.status(201).json({message: 'Message saved to userfollow.json'});    
 
+})
 
 app.listen(5174, () => console.log('Server running on port 5174'));

@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "userid": "2",
+    "articleid": "20",
+    "isliked": true,
+    "count": 1
+  },
+  {
+    "id": 2,
+    "userid": "1",
+    "articleid": "20",
+    "isliked": false,
+    "count": 2
+  },
+  {
+    "id": 3,
+    "userid": "7",
+    "articleid": "20",
+    "isliked": false,
+    "count": 2
+  },
+  {
+    "id": 4,
+    "userid": "6",
+    "articleid": "20",
+    "isliked": true,
+    "count": 2
+  }
+]

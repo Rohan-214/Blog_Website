@@ -6,13 +6,17 @@ import { faWhatsapp as faw } from "@fortawesome/free-brands-svg-icons";
 import { faTwitter as fat } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedinIn as fal } from "@fortawesome/free-brands-svg-icons";
 import LikeButton from "../Buttons/LikeButton";
+import ShareButton from "./ShareButton";
 
-function MainPanal({userphoto, userName, title, publishedDetails, description, content, topicPhoto}){
+function MainPanal({userphoto, userName, title, publishedDetails, description, content, topicPhoto, article_id}){
     const [isclicked, setisclicked] = useState(false)
-
+    console.log("here")
+    
     const toggle = () => {
-        setisclicked((isclicked) => isclicked ? false:true)
+        setisclicked(!isclicked)
     }
+    const userID = localStorage.getItem("userid")
+    const articleID = article_id;
 
     return(
         <>
@@ -22,16 +26,19 @@ function MainPanal({userphoto, userName, title, publishedDetails, description, c
                         <img className="w-8 h-8 rounded-full " src={userphoto}/>
                         <div className="font-medium" >{userName}</div>
                     </div>
-                    <button onClick={toggle} className={` rounded-2xl ${isclicked ? "border-2 font-medium ":"bg-black  text-white" }  px-7`}>{isclicked?"Following":"Follow"}</button>
-                    <div className="flex items-center text-xl gap-1  flex-row-reverse"><LikeButton/></div>
+                    <button type="button" onClick={()=>setisclicked(!isclicked)} className={` rounded-2xl ${isclicked ? "border-2 font-medium ":"bg-black  text-white" }  px-7`}>{isclicked?"Following":"Follow"}</button>
+                    <div className="flex items-center text-xl gap-1  flex-row-reverse">
+                        <LikeButton userid = {userID} articleid={articleID}/>
+                    </div>
                     
                 </div>
                 <div className="flex gap-2 text-xl">
-                    <a href="#"><FontAwesomeIcon icon={faf}/></a>
+                    <ShareButton link = {<FontAwesomeIcon icon={faf}/>} />
+                    {/* <a href="#"><FontAwesomeIcon icon={faf}/></a>
                     <a href="#"><FontAwesomeIcon icon={fai}/></a>
                     <a href="#"><FontAwesomeIcon icon={fal}/></a>
                     <a href="#"><FontAwesomeIcon icon={fat}/></a>
-                    <a href="#"><FontAwesomeIcon icon={faw}/></a>
+                    <a href="#"><FontAwesomeIcon icon={faw}/></a> */}
                 </div>
             </div>
             <div className="mt-5 text-3xl font-bold">{title}</div>

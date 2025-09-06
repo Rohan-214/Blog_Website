@@ -24,7 +24,7 @@ function HomeFArticles() {
             setalluser(uData)
             const filtered = uData.filter(u => Number(u.id) !== Number(currentuserid));
             setfilteredId(filtered);
-            console.log(filtered);
+    
             const uniqueUserIds = [...new Set
                 (articleData
                     .map(a => a.userid)
@@ -71,7 +71,7 @@ function HomeFArticles() {
                     </div>
                 </div>
                 <div>
-                    <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5  w-120 " >
+                    {/* <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5  w-120 " >
                         <div className=" text-2xl font-semibold">Trending</div>
                         <Trends
                             photo="https://t4.ftcdn.net/jpg/05/31/27/67/360_F_531276723_WVWlANKtDQmwSxwW5P2Yn4hngudDeCSg.jpg"
@@ -100,7 +100,7 @@ function HomeFArticles() {
                             topicType="ntf"
                             uploaded="12 hours"
                         />
-                    </div>
+                    </div> */}
                     <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5 mt-5  w-120">
                         <div className=" text-2xl font-semibold">Recommended Users</div>
                         {filteredId.map((user, ind) =>

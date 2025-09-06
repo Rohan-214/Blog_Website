@@ -3,15 +3,11 @@ import BestArticlesTopic from "./BestArticlesTopics";
 import { Link } from "react-router-dom";
 import { fetchUser } from "../../services/users.service";
 import { fetchFirstFourArticles, fetchLastFourArticles } from "../../services/articles.service";
-
 function BestArticles() {
-
     const [articles, setarticles] = useState([]);
     const [user, setuser] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-
     useEffect(() => {
         const loadArticle = async () => {
             try {
@@ -42,10 +38,6 @@ function BestArticles() {
         };
         loadArticle();
     }, []);
-
-
-
-
     return (
         <div className="flex justify-center  h-screen items-center bg-gradient-to-br from-blue-700 to-purple-500">
             <div className="flex gap-5">
@@ -54,11 +46,7 @@ function BestArticles() {
                         Best <span className="text-white"><br />Article<br /></span>Today
                     </div>
                     <Link to="/articles" className="bg-white text-blue-500 rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold ">See All Articles</Link>
-
                 </div>
-
-
-
                 {loading && <p className="text-white text-2xl">Loading articles...</p>}
                 {error && <p className="text-red-300 text-2xl">{error}</p>}
                 {!loading && !error && articles.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
@@ -69,7 +57,7 @@ function BestArticles() {
                         uploadTime={article.time}
                         title={article.title}
                         description={article.content}
-                        id = {article.id}
+                        id={article.id}
                     />
                 )}
             </div>
