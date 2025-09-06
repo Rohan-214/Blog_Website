@@ -16,6 +16,7 @@ import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 import ProtectedRoute from './ProtectedRoute';
 import AddArticles from './components/Home/AddArticles';
+import SessionTimeout from './components/Landing/SessionTimeout';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
@@ -37,10 +38,19 @@ function App() {
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
+
+   const sessionExpired = () => {
+    alert("Session expired! Logging out...");
+    // clear user data
+    localStorage.clear();
+    // redirect
+    window.location.href = "/login";
+  };
   return (
     <>
       <BrowserRouter>
         <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
+        <SessionTimeout timeout={1 * 60 * 1000} onTimeout={sessionExpired} /> 
         <Routes>
           <Route path='/' element={<HomeRootPage />} />
           <Route path='/login' element={<Loginpage handleLogin={handleLogin} />} />
