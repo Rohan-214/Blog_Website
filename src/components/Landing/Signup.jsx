@@ -19,7 +19,7 @@ function Signup(){
         const userObj = {
           "name": user.uname,
           "email": user.email,
-          "phone no": user.tel,
+          "phone_number": user.tel,
           "password": user.pass
         };
         

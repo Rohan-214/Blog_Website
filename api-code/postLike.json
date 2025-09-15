@@ -26,5 +26,12 @@
     "articleid": "20",
     "isliked": true,
     "count": 2
+  },
+  {
+    "id": 5,
+    "userid": "1",
+    "articleid": "1",
+    "isliked": false,
+    "count": 0
   }
 ]
