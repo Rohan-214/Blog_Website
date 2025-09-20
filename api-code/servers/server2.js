@@ -3,11 +3,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./modules/user.js'); // Import the User model
 const Articles = require('./modules/articles.js'); // Import the User model
-
-
+const multer = require('multer');
 const app = express();
 const port = 5174;
-
 // Middleware to parse JSON bodies. This is needed to read `req.body`.
 app.use(express.json());
 app.use(cors({
@@ -15,7 +13,12 @@ app.use(cors({
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type'],
 }));
-
+const upload_Image = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 10 * 1024 * 1024,
+    }
+});
 // --- Database Connection ---
 // Replace this with your MongoDB connection string.
 const dbURI = "mongodb+srv://srivastavarohan214_db_user:vi8uhhnPR1J3JhAB@bloggingwebsite.8hx8xss.mongodb.net/";
@@ -37,15 +40,14 @@ async function dbOperation(operation) {
         console.error('Database operation failed:', error);
         throw error; // Re-throw the error to be caught by the route handler
 
-    } finally {
-        // 3. Once the transaction is done (or failed), close the connection.
-        await mongoose.disconnect();
-        console.log('Database connection closed.');
     }
 }
-
 // --- CRUD Routes ---
-
+app.get('/avatar/:name', (req, res) => {
+    const svg = generateLetterAvatar(req.params.name);
+    res.setHeader('Content-Type', 'image/svg+xml');
+    res.send(svg);
+});
 // CREATE a new user
 app.post('/users', async (req, res) => {
     try {
@@ -58,7 +60,6 @@ app.post('/users', async (req, res) => {
         res.status(400).send({ error: error.message });
     }
 });
-
 // READ all users
 app.get('/users', async (req, res) => {
     try {
@@ -70,7 +71,17 @@ app.get('/users', async (req, res) => {
         res.status(500).send({ error: error.message });
     }
 });
-
+app.get('/users/:id', async (req, res) => {
+    try {
+        const user = await dbOperation(async () => {
+            return await User.findById(req.params.id);
+        });
+        if (!user) return res.status(404).send({ error: "User not found" });
+        res.status(200).send(user);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+});
 // UPDATE a user by ID
 app.put('/users/:id', async (req, res) => {
     try {
@@ -87,7 +98,6 @@ app.put('/users/:id', async (req, res) => {
         res.status(400).send({ error: error.message });
     }
 });
-
 // DELETE a user by ID
 app.delete('/users/:id', async (req, res) => {
     try {
@@ -102,20 +112,59 @@ app.delete('/users/:id', async (req, res) => {
         res.status(500).send({ error: error.message });
     }
 });
-
-app.post('/articles', async (req, res) => {
+app.post('/articles', upload_Image.single("image"), async (req, res) => {
     try {
+        let base64Image = null;
+        if (req.file) {
+            base64Image = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+        }
         const newArticle = await dbOperation(async () => {
-            const articles = new Articles(req.body); // Create a new user instance from request body
-            return await articles.save(); // Save it to the database
-        });
+            const articleData = {
+                ...req.body,
+                image: base64Image
+            };
+                const articles = new Articles(articleData); // Create a new user instance from request body
+                console.log(articles, "awef");
+                return await articles.save(); // Save it to the database
+            });
         res.status(201).send(newArticle); // Send back the created user with a 201 status
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
 });
+app.get('/articles', async (req, res) => {
+    try {
+        const articles = await dbOperation(async () => {
+            console.log(Articles);
+            return await Articles.find({}); // Find all documents in the User collection
 
-
+        });
+        res.status(200).send(articles); // Send back the array of users
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+});
+app.get('/articles/:id', async (req, res) => {
+    try {
+        const articles = await dbOperation(async () => {
+            return await Articles.findById(req.params.id);
+        });
+        if (!articles) return res.status(404).send({ error: "User not found" });
+        res.status(200).send(articles);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+});
+app.get('/articles/firstfour/get', async (req, res) => {
+    try {
+        const articles = await dbOperation(async () => {
+            return await Articles.find({}).limit(4);
+        });
+        res.status(200).send(articles);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
+    }
+});
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

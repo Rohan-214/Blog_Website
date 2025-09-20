@@ -2,15 +2,11 @@ import react, { useEffect, useState } from 'react';
 import TopicName from '../Articles/TopicName';
 import { Link } from 'react-router-dom';
 function AddArticles() {
-    const now = new Date();
     const [selectedTopic, setSelectedTopic] = useState("");
     const [specificTopic, setSpecificTopic] = useState("");
     const [articleTitle, setArticleTitle] = useState("");
     const [articleContent, setArticleContent] = useState("");
     const [imageFile, setImageFile] = useState(null);
-    const [userImage, setuserImage] = useState(null);
-    const uploadTime = new Date().toISOString();
-    const dayName = now.toLocaleString("en-US", { weekday: "long" });
     const id = localStorage.getItem('userid');
     const handleImageChange = (e) => {
         setImageFile(e.target.files[0]);
@@ -23,12 +19,13 @@ function AddArticles() {
         formData.append("specificTopic", specificTopic);
         formData.append("title", articleTitle);
         formData.append("content", articleContent);
-        formData.append("image", imageFile); // raw file
         formData.append("userid", id);
-        formData.append("time", uploadTime);
-        formData.append("day", dayName);
-        formData.append("user_Image", userImage ? userImage.name : "")
-        // Send POST request to json-server
+        formData.append("time", new Date().toISOString());
+        formData.append("day", new Date().toLocaleString("en-US", { weekday: "long" }));
+        if (imageFile) {
+            formData.append("image", imageFile);
+        }
+
         const res = await fetch("http://localhost:5174/articles", {
             method: "POST",
             body: formData,
@@ -40,7 +37,8 @@ function AddArticles() {
             setSpecificTopic("");
             setArticleTitle("");
             setArticleContent("");
-            setuserImage(null);
+            setImageFile(null);
+            e.target.reset();
         } else {
             alert("Failed to submit article.");
         }

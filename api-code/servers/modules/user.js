@@ -20,7 +20,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type:String,
         required: true
+    },
+    user_image: {
+        type: String
     }
+
 });
 
 // A Model is a class that's compiled from the Schema.

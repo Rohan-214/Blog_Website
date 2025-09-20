@@ -20,6 +20,7 @@ function Contact() {
         }).then((res) => res.json());
 
         if (res.success) {
+            alert("Message sent successfully");
             console.log("Success", res);
             event.target.reset();
         } else {

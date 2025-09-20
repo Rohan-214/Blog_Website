@@ -65,7 +65,7 @@ function HomeFArticles() {
                                 topicName={art.specificTopic}
                                 visibility="block"
                                 forclass="flex-col"
-                                article_id={art.id}
+                                article_id={art._id}
                             />
                         )}
                     </div>
@@ -107,7 +107,7 @@ function HomeFArticles() {
 
                         (<RecommendedUser 
                             key={ind}
-                            userid= {user.id}
+                            userid= {user._id}
                             username={user.name}
                             userphoto="https://t4.ftcdn.net/jpg/05/31/27/67/360_F_531276723_WVWlANKtDQmwSxwW5P2Yn4hngudDeCSg.jpg"
                             

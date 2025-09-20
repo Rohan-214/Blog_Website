@@ -52,12 +52,12 @@ function BestArticles() {
                 {!loading && !error && articles.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
                 {!loading && !error && articles.map((article) =>
                     <BestArticlesTopic
-                        key={article.id}
+                        key={article._id}
                         photo={article.image}
                         uploadTime={article.time}
                         title={article.title}
                         description={article.content}
-                        id={article.id}
+                        id={article._id}
                     />
                 )}
             </div>

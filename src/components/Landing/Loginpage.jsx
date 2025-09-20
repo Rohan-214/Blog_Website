@@ -25,7 +25,8 @@ function Loginpage({handleLogin}){
     const user = users.find(u => u.email === email && u.password === pass);
 
     if (user) {
-      const userid = user.id;
+      const userid = user._id;
+      console.log(userid);
       localStorage.setItem('userid', userid);
       localStorage.setItem('isAuthh', true);
 
