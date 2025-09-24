@@ -1,8 +1,8 @@
-export const fetchCommentsByLikedId = async (articleId) => {
+export const fetchCommentsByLikedId = async (articleid) => {
     try {
-        const res = await fetch(`http://localhost:5174/postLike?articleid=${articleId}`);
+        const res = await fetch(`http://localhost:5174/postLike?articleid=${articleid}`);
         if (!res.ok) {
-            console.error(`Error fetching comments for article ${articleId}: ${res.status} ${res.statusText}`);
+            console.error(`Error fetching comments for article ${articleid}: ${res.status} ${res.statusText}`);
             return [];
         }
         const data = await res.json();

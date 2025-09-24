@@ -20,6 +20,8 @@ export const fetchAllArticles = async (topic) => {
             ? `http://localhost:5174/articles?topic=${encodeURIComponent(topic)}`
             : `http://localhost:5174/articles`;
 
+            console.log(url)
+
         const res = await fetch(url);
         if (!res.ok) {
             console.error(`Error fetching all articles: ${res.status} ${res.statusText}`);

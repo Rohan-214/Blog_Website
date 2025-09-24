@@ -9,15 +9,21 @@ function RecommendedUser({ username, userphoto, userid }) {
     useEffect(() => {
         axios.get(`http://localhost:5174/userfollow?myid=${myid}&userid=${userid}`)
             .then(res => {
-                const newres = res.data.filteredfollow;
-                if (newres.length > 0) {
-                    setisclicked(newres[0].isclicked || false);
+                const newres = res.data;
+                if (newres?.length > 0) {
+                    setisclicked(newres[0]?.isfollowing);
                 }
+                else{
+                    setisclicked(false);
+                }
+            }).catch(err => {
+                console.error("Error fetching follow data:", err);
+                setisclicked(false);
             });
-    }, [myid, userid]);
+    }, []);
 
     const toggle = () => {
-        const followData = { myid, userid, isclicked: !isclicked };
+        const followData = { myid, userid, isfollowing: !isclicked };
 
         axios.post('http://localhost:5174/userfollow', followData)
             .then(res => {

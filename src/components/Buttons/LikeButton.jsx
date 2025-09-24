@@ -12,11 +12,14 @@ function LikeButton({ userid, articleid }) {
     useEffect(() => {
         axios.get(`http://localhost:5174/postLike?userid=${userid}&articleid=${articleid}`)
             .then(res => {
-                const newres = res.data.filteredLikes;
-                const totalLikes = res.data.totalLikes;
-                if (newres.length > 0) {
-                    setisliked(newres[0].isliked || false);
-                    setcount(totalLikes);
+                const likeData = res.data.find(item => item.userid === userid && item.articleid === articleid);
+                const totalLikes = res.data.length; // Assuming res.data is an array of all likes for the article
+
+                setcount(totalLikes);
+
+                if (likeData) {
+                    setisliked(likeData.isliked);
+
                 }
             });
     }, [userid, articleid]);
@@ -25,18 +28,22 @@ function LikeButton({ userid, articleid }) {
         console.log("Like button clicked!");
         console.log("Current state:", isliked, count);
         const newIsLiked = !isliked;
+        console.log("New state:", newIsLiked, count);
         const newCount = newIsLiked ? count + 1 : count - 1;
+        console.log("New count:", newCount);
         const likeData = { userid, articleid, isliked: newIsLiked, count: newCount };
-        console.log(likeData);
+        console.log("Like data:", likeData);
+
+
         axios.post('http://localhost:5174/postLike', likeData)
         .then(res => {
             console.log("Response from server:", res.data);
+            setisliked(newIsLiked);
+            setcount(newCount);
         })
         .catch(err => {
             console.error("Error posting like data:", err);
         });
-        setisliked(newIsLiked);
-        setcount(newCount);
     };
 
     return (

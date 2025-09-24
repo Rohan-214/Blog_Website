@@ -15,14 +15,16 @@ function HomeFArticles() {
     const [alluser, setalluser] = useState([])
     const [topic, settopic] = useState("")
     const [filteredId, setfilteredId] = useState([])
-    const currentuserid = localStorage.getItem("userid");
+    const currentuserid = localStorage.getItem("userid"); 
     useEffect(() => {
         const loadArticle = async () => {
             const articleData = await fetchAllArticles(topic);
             setArticle(articleData)
             const uData = await fetchAllUsers();
+            console.log(uData);
             setalluser(uData)
-            const filtered = uData.filter(u => Number(u.id) !== Number(currentuserid));
+            const filtered = uData.filter(u => u._id !== currentuserid);
+
             setfilteredId(filtered);
 
             const uniqueUserIds = [...new Set
