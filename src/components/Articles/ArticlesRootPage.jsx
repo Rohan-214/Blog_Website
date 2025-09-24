@@ -57,9 +57,9 @@ function ArticlesRootPage() {
 
                     {/* <TrendingPanel /> */}
                     {/* <Recommend /> */}
-
+{/* 
                     <MainCommentPanal id={id} name ={user.name || user.username || "Unknown Author"} email = {user.email}/>
-                    
+                     */}
 
                 </div>
                 <div className="w-200 py-10">

@@ -10,16 +10,14 @@ const postLikeSchema = new mongoose.Schema({
     articleid: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        unique: true // No two users can have the same email
     },
     isliked: {
         type: Boolean,
         required: true,
-        unique:true 
     },
-    count: {
-        type:Number,
-        required: true
+    count:{
+        type: Number,
+        required: true,
     }
 
 });

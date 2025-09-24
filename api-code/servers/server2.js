@@ -216,22 +216,28 @@ app.get('/userfollow', async (req, res) => {
 app.post('/postlike', async (req, res) => {
     try {
         const { articleid, userid, isliked, count } = req.body;
-        // The query to find the specific follow relationship
+
+        // This will find a document with the matching user and article ID
         const query = { articleid: articleid, userid: userid };
-        // The data to update or insert
-        const update = { isliked: isliked, count: count };       
-        // Options: 
-        // upsert: true -> create a new doc if none is found
-        // new: true -> return the new, updated document instead of the old one
+        
+        // This will set the 'isliked' status
+        const update = { isliked: isliked, count: count };
+
+        // 'upsert: true' creates the document if it doesn't exist.
+        // 'new: true' ensures the updated document is returned.
         const options = { upsert: true, new: true };
-        const updatedFollow = await PostLike.findOneAndUpdate(query, update, options);
-        res.status(200).json({ 
-            message: 'Follow status updated successfully.',
-            followStatus: updatedFollow 
+
+        // This single command handles everything: creating or updating.
+        const updatedLike = await PostLike.findOneAndUpdate(query, update, options);
+
+        res.status(200).json({
+            message: 'Like status updated successfully.',
+            likeStatus: updatedLike
         });
+
     } catch (error) {
-        console.error("Error in /userfollow route:", error);
-        res.status(500).json({ message: 'An error occurred.' });
+        console.error("Error in /postlike route:", error);
+        res.status(500).json({ message: 'An error occurred while updating like status.' });
     }
 });
 app.get('/postlike', async (req, res) => {

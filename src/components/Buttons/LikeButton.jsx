@@ -13,9 +13,7 @@ function LikeButton({ userid, articleid }) {
         axios.get(`http://localhost:5174/postLike?userid=${userid}&articleid=${articleid}`)
             .then(res => {
                 const likeData = res.data.find(item => item.userid === userid && item.articleid === articleid);
-                const totalLikes = res.data.length; // Assuming res.data is an array of all likes for the article
-
-                setcount(totalLikes);
+               
 
                 if (likeData) {
                     setisliked(likeData.isliked);
