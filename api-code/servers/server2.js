@@ -230,9 +230,12 @@ app.post('/postlike', async (req, res) => {
         // This single command handles everything: creating or updating.
         const updatedLike = await PostLike.findOneAndUpdate(query, update, options);
 
+        // Recalculate the total likes for the article
+        const likeCount = await PostLike.countDocuments({ articleid: articleid, count: { $gt: 1 } });
+
         res.status(200).json({
             message: 'Like status updated successfully.',
-            likeStatus: updatedLike
+            likeStatus: { ...updatedLike.toObject(), count: likeCount }
         });
 
     } catch (error) {

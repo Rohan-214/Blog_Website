@@ -3,6 +3,7 @@ import { faHeart as fah } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as fash } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { fetchCommentsByLikedId } from "../../services/likes.service";
 
 function LikeButton({ userid, articleid }) {
     const [isliked, setisliked] = useState(false);
@@ -10,17 +11,21 @@ function LikeButton({ userid, articleid }) {
     //new state 
 
     useEffect(() => {
-        axios.get(`http://localhost:5174/postLike?userid=${userid}&articleid=${articleid}`)
-            .then(res => {
-                const likeData = res.data.find(item => item.userid === userid && item.articleid === articleid);
-               
+    fetchCommentsByLikedId(articleid).then(likes => {
+        // 1. Filter the likes to only include the ones where isliked is true
+        const likedLikes = likes.filter(like => like.isliked);
+        // 2. Set the count to the length of the filtered array
+        setcount(likedLikes.length);
 
-                if (likeData) {
-                    setisliked(likeData.isliked);
-
-                }
-            });
-    }, [userid, articleid]);
+        // 3. Find the like for the current user to set the button's state
+        const userLike = likes.find(like => like.userid === userid);
+        if (userLike) {
+            setisliked(userLike.isliked);
+        } else {
+            setisliked(false);
+        }
+    });
+}, [userid, articleid]);
 
     const toggle = async () => {
         console.log("Like button clicked!");
