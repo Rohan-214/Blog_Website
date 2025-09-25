@@ -6,6 +6,7 @@ const Articles = require('./modules/articles.js'); // Import the User model
 const multer = require('multer');
 const Userfollow = require('./modules/userfollow.js');
 const PostLike = require('./modules/postLike.js');
+const Comments = require('./modules/comments.js');
 const app = express();
 const port = 5174;
 // Middleware to parse JSON bodies. This is needed to read `req.body`.
@@ -180,15 +181,15 @@ app.post('/userfollow', async (req, res) => {
         // The query to find the specific follow relationship
         const query = { myid: myid, userid: userid };
         // The data to update or insert
-        const update = { isfollowing: isfollowing };       
+        const update = { isfollowing: isfollowing };
         // Options: 
         // upsert: true -> create a new doc if none is found
         // new: true -> return the new, updated document instead of the old one
         const options = { upsert: true, new: true };
         const updatedFollow = await Userfollow.findOneAndUpdate(query, update, options);
-        res.status(200).json({ 
+        res.status(200).json({
             message: 'Follow status updated successfully.',
-            followStatus: updatedFollow 
+            followStatus: updatedFollow
         });
     } catch (error) {
         console.error("Error in /userfollow route:", error);
@@ -207,7 +208,7 @@ app.get('/userfollow', async (req, res) => {
         }
         const userfollow = await Userfollow.find(query);
         res.status(200).json(userfollow);
-        
+
     } catch (error) {
 
         res.status(500).json({ message: 'An error occurred.' });
@@ -219,7 +220,7 @@ app.post('/postlike', async (req, res) => {
 
         // This will find a document with the matching user and article ID
         const query = { articleid: articleid, userid: userid };
-        
+
         // This will set the 'isliked' status
         const update = { isliked: isliked, count: count };
 
@@ -245,7 +246,7 @@ app.post('/postlike', async (req, res) => {
 });
 app.get('/postlike', async (req, res) => {
     try {
-        const { articleid, userid} = req.query;
+        const { articleid, userid } = req.query;
         let query = {};
         if (articleid) {
             query.articleid = articleid;
@@ -262,8 +263,33 @@ app.get('/postlike', async (req, res) => {
         res.status(500).json({ message: 'An error occurred.' });
     }
 })
-
+app.post('/comments', async (req, res) => {
+    try {
+        const newComments = await dbOperation(async () => {
+            const comments = new Comments(req.body); // Create a new user instance from request body
+            return await comments.save(); // Save it to the database
+        });
+        res.status(201).send(newComments); // Send back the created user with a 201 status
+    } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+});
+app.get('/comments', async (req, res) => {
+    try {
+        const filter = {};
+        if (req.query.articleid) {
+            filter.articleid = req.query.articleid;
+        }
+        const comments = await dbOperation(async () => {
+            return await Comments.find(filter); // Find all documents in the User collection
+        });
+        res.status(200).send(comments); // Send back the array of users
+    }
+    catch{
+        res.status(500).send({ error: error.message });
+    }
+});
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+        console.log(`Server is running on http://localhost:${port}`);
+    });
