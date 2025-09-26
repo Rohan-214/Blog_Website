@@ -20,7 +20,7 @@ function HomeRootPage(){
         <>  
 
             {btn}
-            <div className="flex justify-center" ><button onClick={toggleView} className="text-4xl hover:font-bold ">{enable ?">" : "<" }</button></div>
+            {/* <div className="flex justify-center" ><button onClick={toggleView} className="text-4xl hover:font-bold ">{enable ?">" : "<" }</button></div> */}
             <BestArticles />
                 <SubscribePage/>
                 <Footer/>

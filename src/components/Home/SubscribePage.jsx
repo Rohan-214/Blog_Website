@@ -9,7 +9,7 @@ function SubscribePage () {
 
     return (
         <>
-            <div className="flex justify-center items-center h-screen bg-gray-200">
+            <div className="flex justify-center items-center h-[88vh] bg-gray-200">
                 <div className="bg-white h-120 rounded-3xl flex overflow-hidden">
                     <div className="w-1/2">
                         <Dotdesign top="   border-10 border-gradient-to-tr from-purple-500 to-blue-400  rotate-45  w-45  h-15" />

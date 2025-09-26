@@ -29,7 +29,7 @@ function Home(){
         <>
 
         <div className=" ">
-            <div className="flex justify-center items-center h-[95vh] ">
+            <div className="flex justify-center items-center h-screen ">
                 <img className=" rounded-br-2xl rounded-l-full rounded-tr-full  " 
                     src="https://img.freepik.com/free-photo/smiley-woman-with-headphones-working-laptop_23-2148764530.jpg?t=st=1751754978~exp=1751758578~hmac=19ec2661a5f56da11ab229bf6626dfedd7a557b4cbfe8e2a1b8160aa4505a61f%22" 
                     alt="" 
