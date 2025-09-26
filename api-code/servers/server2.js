@@ -17,6 +17,9 @@ app.use(cors({
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type'],
 }));
+app.get('/test-route', (req, res) => {
+  res.send("Success! The new version of the code is live!");
+});
 const upload_Image = multer({
     storage: multer.memoryStorage(),
     limits: {
