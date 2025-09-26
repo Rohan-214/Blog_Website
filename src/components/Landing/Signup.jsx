@@ -23,7 +23,7 @@ function Signup(){
           "password": user.pass
         };
         
-          const usersRes = await fetch("${import.meta.env.VITE_API_URL}/users");
+          const usersRes = await fetch(`${import.meta.env.VITE_API_URL}/users`);
           const users = await usersRes.json();
           const emailExists = users.some(u => u.email === user.email);
 
@@ -32,7 +32,7 @@ function Signup(){
             return;
           }
 
-          const res = await fetch("${import.meta.env.VITE_API_URL}/users", {
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userObj)

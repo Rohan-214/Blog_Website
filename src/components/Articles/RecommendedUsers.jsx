@@ -25,7 +25,7 @@ function RecommendedUser({ username, userphoto, userid }) {
     const toggle = () => {
         const followData = { myid, userid, isfollowing: !isclicked };
 
-        axios.post('${import.meta.env.VITE_API_URL}/userfollow', followData)
+        axios.post(`${import.meta.env.VITE_API_URL}/userfollow`, followData)
             .then(res => {
                 console.log("Response from server:", res.data);
             })
