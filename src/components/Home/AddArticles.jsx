@@ -26,7 +26,7 @@ function AddArticles() {
             formData.append("image", imageFile);
         }
 
-        const res = await fetch("http://localhost:5174/articles", {
+        const res = await fetch("${import.meta.env.VITE_API_URL}/articles", {
             method: "POST",
             body: formData,
         });
