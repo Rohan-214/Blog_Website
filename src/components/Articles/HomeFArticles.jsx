@@ -5,6 +5,7 @@ import RecommendedUser from "./RecommendedUsers";
 import Footer from "../../Footer";
 import { fetchAllArticles, fetchArticle } from "../../services/articles.service";
 import { fetchAllUsers, fetchUser } from "../../services/users.service";
+import Articles from "../../../api-code/servers/modules/articles";
 function HomeFArticles() {
     const [article, setArticle] = useState([]);
     const [user, setuser] = useState({})
@@ -61,7 +62,7 @@ function HomeFArticles() {
                     </div>
                     {loading && <p className="text-white text-2xl">Loading articles...</p>}
                     {error && <p className="text-red-300 text-2xl">{error}</p>}
-                    {!loading && !error && articles.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
+                    {!loading && !error && Articles.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
                     <div className="mt-5 flex flex-col gap-5 ">
                         {article.map((art, ind) =>
                             <NewTopicPanel key={ind}
