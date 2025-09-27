@@ -38,7 +38,7 @@ function LikeButton({ userid, articleid }) {
         console.log("Like data:", likeData);
 
 
-        axios.post(`${import.meta.env.VITE_API_URL}/postLike`, likeData)
+        axios.post(`http://localhost:5174/postLike`, likeData)
         .then(res => {
             console.log("Response from server:", res.data);
             setisliked(newIsLiked);

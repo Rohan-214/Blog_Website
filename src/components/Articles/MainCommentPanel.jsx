@@ -20,7 +20,7 @@ function MainCommentPanal({ topicPhoto, id, name, email, userPhoto, userName, to
     useEffect(() => {
         async function fetchComments() {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/comments`);
+                const res = await fetch(`http://localhost:5174/comments`);
                 if (!res.ok) throw new Error("Failed to fetch comments");
                 const data = await res.json();
                 // Filter comments for this article
@@ -45,7 +45,7 @@ function MainCommentPanal({ topicPhoto, id, name, email, userPhoto, userName, to
         };
         console.log(commentobj);
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/comments`, {
+            const res = await fetch(`http://localhost:5174/comments`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(commentobj),

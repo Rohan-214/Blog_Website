@@ -20,7 +20,7 @@ function Loginpage({handleLogin}){
 
   const handleLoginUtil = async (e) => {
     e.preventDefault();
-    const usersRes = await fetch(`${import.meta.env.VITE_API_URL}/users`);
+    const usersRes = await fetch(`http://localhost:5174/users`);
     const users = await usersRes.json();
     const user = users.find(u => u.email === email && u.password === pass);
 

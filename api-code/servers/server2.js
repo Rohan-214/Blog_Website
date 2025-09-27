@@ -63,6 +63,9 @@ app.get('/avatar/:name', (req, res) => {
     // res.send(svg);
     res.status(404).send('Avatar generation not implemented yet.');
 });
+app.get('/' , (req,res) => {
+    res.send("Success! The new version of the code is live!");
+})
 
 // CREATE a new user
 app.post('/users', async (req, res) => {
