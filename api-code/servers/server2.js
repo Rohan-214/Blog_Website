@@ -30,9 +30,6 @@ mongoose.connect(dbURI)
   .then(() => {
     console.log('Connected to MongoDB database successfully!');
     // Only start listening for requests after the database connection is successful
-    app.listen(port, () => {
-        console.log(`Server is running on port: ${port}`);
-    });
   })
   .catch((err) => {
     console.error('Database connection error:', err);
