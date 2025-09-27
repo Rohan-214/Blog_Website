@@ -10,27 +10,37 @@ function HomeFArticles() {
     const [user, setuser] = useState({})
     const [alluser, setalluser] = useState([])
     const [topic, settopic] = useState("")
+    const [loading, setloading] = useState(true)
+    const [error, setError] = useState(null)
     const [filteredId, setfilteredId] = useState([])
     const currentuserid = localStorage.getItem("userid");
     useEffect(() => {
         const loadArticle = async () => {
-            const articleData = await fetchAllArticles(topic);
-            setArticle(articleData)
-            const uData = await fetchAllUsers();
-            console.log(uData);
-            setalluser(uData)
-            const filtered = uData.filter(u => u._id !== currentuserid);
-            setfilteredId(filtered);
-            const uniqueUserIds = [...new Set
-                (articleData
-                    .map(a => a.userid)
-                    .filter(Boolean)
-                )];
-            const usersData = {};
-            for (let id of uniqueUserIds) {
-                usersData[id] = await fetchUser(id);
+            try {
+                setloading(true);
+                setError(null);
+                const articleData = await fetchAllArticles(topic);
+                setArticle(articleData)
+                const uData = await fetchAllUsers();
+                console.log(uData);
+                setalluser(uData)
+                const filtered = uData.filter(u => u._id !== currentuserid);
+                setfilteredId(filtered);
+                const uniqueUserIds = [...new Set
+                    (articleData
+                        .map(a => a.userid)
+                        .filter(Boolean)
+                    )];
+                const usersData = {};
+                for (let id of uniqueUserIds) {
+                    usersData[id] = await fetchUser(id);
+                }
+                setuser(usersData);
+            } catch (error) {
+                setError("Could not fetch articles. The server might be down or the endpoint is not found.");
+            } finally {
+                setloading(false);
             }
-            setuser(usersData);
         };
         loadArticle();
     }, [topic]);
@@ -49,7 +59,9 @@ function HomeFArticles() {
                         <button onClick={() => settopic("Health")}   ><TopicList topic="Health" /></button>
                         <button onClick={() => settopic("Education")}   ><TopicList topic="Education" /></button>
                     </div>
-                    <div className={`${article.length == 0 ? "text-2xl font-semibold mt-5 text-center" : "hidden"} `}>Articles not found</div>
+                    {loading && <p className="text-white text-2xl">Loading articles...</p>}
+                    {error && <p className="text-red-300 text-2xl">{error}</p>}
+                    {!loading && !error && articles.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
                     <div className="mt-5 flex flex-col gap-5 ">
                         {article.map((art, ind) =>
                             <NewTopicPanel key={ind}
