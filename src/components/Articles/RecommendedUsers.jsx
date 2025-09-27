@@ -7,7 +7,7 @@ function RecommendedUser({ username, userphoto, userid }) {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:5174/userfollow?myid=${myid}&userid=${userid}`)
+        axios.get(`https://blog-website-nine-gamma.vercel.app/userfollow?myid=${myid}&userid=${userid}`)
             .then(res => {
                 const newres = res.data;
                 if (newres?.length > 0) {
@@ -25,7 +25,7 @@ function RecommendedUser({ username, userphoto, userid }) {
     const toggle = () => {
         const followData = { myid, userid, isfollowing: !isclicked };
 
-        axios.post(`http://localhost:5174/userfollow`, followData)
+        axios.post(`https://blog-website-nine-gamma.vercel.app/userfollow`, followData)
             .then(res => {
                 console.log("Response from server:", res.data);
             })

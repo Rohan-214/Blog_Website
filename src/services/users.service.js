@@ -1,6 +1,6 @@
 export const fetchUser = async (user_id) => {
     try {
-        const res = await fetch(`http://localhost:5174/users/${user_id}`); // adjust backend URL
+        const res = await fetch(`https://blog-website-nine-gamma.vercel.app/users/${user_id}`); // adjust backend URL
         const data = await res.json();
         return data;
     } catch (err) {
@@ -12,7 +12,7 @@ export const fetchUser = async (user_id) => {
 
 export const fetchAllUsers = async () => {
     try{
-        const res = await fetch(`http://localhost:5174/users`);
+        const res = await fetch(`https://blog-website-nine-gamma.vercel.app/users`);
         const data = await res.json();
         return data;
     } catch(err){

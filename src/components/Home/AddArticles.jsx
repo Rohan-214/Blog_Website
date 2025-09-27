@@ -26,7 +26,7 @@ function AddArticles() {
             formData.append("image", imageFile);
         }
 
-        const res = await fetch(`http://localhost:5174/articles`, {
+        const res = await fetch(`https://blog-website-nine-gamma.vercel.app/articles`, {
             method: "POST",
             body: formData,
         });

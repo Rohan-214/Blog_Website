@@ -38,7 +38,7 @@ function LikeButton({ userid, articleid }) {
         console.log("Like data:", likeData);
 
 
-        axios.post(`http://localhost:5174/postLike`, likeData)
+        axios.post(`https://blog-website-nine-gamma.vercel.app/postLike`, likeData)
         .then(res => {
             console.log("Response from server:", res.data);
             setisliked(newIsLiked);

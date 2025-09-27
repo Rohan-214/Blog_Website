@@ -1,6 +1,6 @@
 export const fetchCommentsByLikedId = async (articleid) => {
     try {
-        const res = await fetch(`http://localhost:5174/postLike?articleid=${articleid}`);
+        const res = await fetch(`https://blog-website-nine-gamma.vercel.app/postLike?articleid=${articleid}`);
         if (!res.ok) {
             console.error(`Error fetching comments for article ${articleid}: ${res.status} ${res.statusText}`);
             return [];

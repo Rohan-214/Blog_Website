@@ -1,6 +1,6 @@
 export const fetchArticle = async (articleId) => {
     try {
-        const res = await fetch(`http://localhost:5174/articles/${articleId}`); // adjust backend URL
+        const res = await fetch(`https://blog-website-nine-gamma.vercel.app/articles/${articleId}`); // adjust backend URL
         if (!res.ok) {
             console.error(`Error fetching article ${articleId}: ${res.status} ${res.statusText}`);
             return null;
@@ -17,8 +17,8 @@ export const fetchArticle = async (articleId) => {
 export const fetchAllArticles = async (topic) => {
     try {
         const url = topic
-            ? `http://localhost:5174/articles?topic=${encodeURIComponent(topic)}`
-            : `http://localhost:5174/articles`;
+            ? `https://blog-website-nine-gamma.vercel.app/articles?topic=${encodeURIComponent(topic)}`
+            : `https://blog-website-nine-gamma.vercel.app/articles`;
 
             console.log(url)
 
@@ -38,7 +38,7 @@ export const fetchAllArticles = async (topic) => {
 // now create services for first four and last four
 export const fetchFirstFourArticles = async () => {
     try {
-        const res = await fetch(`http://localhost:5174/articles/firstfour/get`);
+        const res = await fetch(`https://blog-website-nine-gamma.vercel.app/articles/firstfour/get`);
         //console.log(res)
         if (!res.ok) {
             console.error(`Error fetching first four articles: ${res.status} ${res.statusText}`);
@@ -55,7 +55,7 @@ export const fetchFirstFourArticles = async () => {
 
 export const fetchLastFourArticles = async () => {
     try {
-        const res = await fetch(`http://localhost:5174/articles/lastfour/le`);
+        const res = await fetch(`https://blog-website-nine-gamma.vercel.app/articles/lastfour/le`);
         if (!res.ok) {
             console.error(`Error fetching last four articles: ${res.status} ${res.statusText}`);
             return null;
