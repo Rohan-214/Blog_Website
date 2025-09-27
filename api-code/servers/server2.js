@@ -1,14 +1,13 @@
 // ===============================================================
-// FINAL CORRECTED server2.js
+// FINAL CORRECTED server2.js FOR VERCEL
 // ===============================================================
-// Final push at 10:40 PM
-
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const multer = require('multer');
 
 // --- Require all your models ---
+// Note: Make sure these paths are correct relative to server2.js
 const User = require('./modules/user.js');
 const Articles = require('./modules/articles.js');
 const Userfollow = require('./modules/userfollow.js');
@@ -16,30 +15,24 @@ const PostLike = require('./modules/postLike.js');
 const Comments = require('./modules/comments.js');
 
 const app = express();
-// For Render, it's best to use their port or a default
-const port = process.env.PORT || 5174;
 
 // --- Middleware ---
-app.use(cors()); // A simple cors() is enough for now
+app.use(cors());
 app.use(express.json());
 
 // --- Database Connection ---
 const dbURI = "mongodb+srv://srivastavarohan214_db_user:vi8uhhnPR1J3JhAB@bloggingwebsite.8hx8xss.mongodb.net/";
 
+// Connect to MongoDB. In a serverless environment, you just need to initiate the connection.
+// Vercel handles the lifecycle.
 mongoose.connect(dbURI)
-  .then(() => {
-    console.log('Connected to MongoDB database successfully!');
-    // Only start listening for requests after the database connection is successful
-  })
-  .catch((err) => {
-    console.error('Database connection error:', err);
-    process.exit(1); // Exit the process with an error code
-  });
+  .then(() => console.log('Database connection successful.'))
+  .catch(err => console.error('Database connection error:', err));
 
 
 // --- Test Route ---
 app.get('/test-route', (req, res) => {
-  res.send("Success! The new version of the code is live!");
+  res.send("Success! The code is live!");
 });
 
 const upload_Image = multer({
@@ -50,20 +43,15 @@ const upload_Image = multer({
 
 // --- Your API Routes ---
 
-// NOTE: We have removed the `dbOperation` wrapper from all routes
-// because we are now connected to the database globally.
-
 app.get('/avatar/:name', (req, res) => {
-    // You need to define the generateLetterAvatar function for this to work
-    // const svg = generateLetterAvatar(req.params.name); 
-    // res.setHeader('Content-Type', 'image/svg+xml');
-    // res.send(svg);
     res.status(404).send('Avatar generation not implemented yet.');
 });
+
 app.get('/', (req,res) => {
     res.send({
-        activestatus:true,
-        error:false,
+        activestatus: true,
+        message: 'API is running.',
+        error: false,
     });
 })
 
@@ -256,7 +244,11 @@ app.get('/comments', async (req, res) => {
         const comments = await Comments.find(filter);
         res.status(200).send(comments);
     }
-    catch (error) { // This is the corrected line
+    catch (error) {
         res.status(500).send({ error: error.message });
     }
 });
+
+// IMPORTANT: This line exports the Express app for Vercel to use.
+// It MUST be the last line in the file.
+module.exports = app;
