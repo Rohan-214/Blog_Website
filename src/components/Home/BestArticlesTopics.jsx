@@ -25,7 +25,7 @@ function BestArticlesTopic ({photo, title, description, uploadTime, id }) {
                                     {/* <LikeButton/> */}
                                 </div>
                             </div>   
-                            <Link to={`/articles/${id}`} className="bg-blue-500 w-25 h-10 flex text-white justify-center items-center rounded-full hover:shadow-2xl hover:font-semibold">Read More</Link>
+                            <Link to={`/articles/${id}`} className="bg-[#2F5E64] w-25 h-10 flex text-white justify-center items-center rounded-full hover:shadow-2xl hover:font-semibold">Read More</Link>
                         </div>
                     </div>
                 </div>

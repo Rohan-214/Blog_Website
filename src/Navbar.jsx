@@ -33,19 +33,18 @@ function Navbar({ handleLogout, isAuthenticated }) {
     return (
         <>
             <div className={` mx-auto px-4 py-3 flex justify-around fixed right-0 left-0 w-full z-50 backdrop-blur-md }`}>
-                <div className="text-4xl font-bold">RISE<span className="font-normal bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent ">BLOG</span></div>
-                <div className="flex  gap-4 items-center text-lg">
-                    <Link to="/home">Home</Link>
-                    <Link to="/articles">Articles</Link>
-                    <Link to="/about">About</Link>
-                    <Link to="/contact">Contact</Link>
+                <div className="text-4xl font-bold">RISE<span className="font-semibold text-[#2F5E64]">BLOG</span></div>
+                <div className="flex  gap-4 items-center text-lg font-semibold">
+                    <Link className="hover:text-[#BC7E6C]" to="/home">Home</Link>
+                    <Link className="hover:text-[#BC7E6C]" to="/articles">Articles</Link>
+                    <Link className="hover:text-[#BC7E6C]" to="/about">About</Link>
+                    <Link className="hover:text-[#BC7E6C]" to="/contact">Contact</Link>
                     {!hideLogout && (
                         <div className="relative">
                             <button
-                                className="bg-gradient-to-tr from-purple-600 to-blue-500 rounded-xl p-1 text-white"
+                                className="hover:text-[#BC7E6C]"
                                 onClick={() => setShowUserBox((prev) => !prev)}
-                            >
-                                <FontAwesomeIcon icon={faUser} />
+                            >Profile
                             </button>
                             {showUserBox && (
                                 <div className="absolute right-0 mt-2  flex flex-col bg-white rounded-lg shadow-lg p-4 z-50">

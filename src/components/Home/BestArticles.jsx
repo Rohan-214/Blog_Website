@@ -39,13 +39,13 @@ function BestArticles() {
         loadArticle();
     }, []);
     return (
-        <div className="flex justify-center  h-screen items-center bg-gradient-to-br from-blue-700 to-purple-500">
+        <div className="flex justify-center  h-screen items-center bg-[#2F5E64]">
             <div className="flex gap-5">
                 <div>
-                    <div className="text-8xl font-semibold mb-8">
-                        Best <span className="text-white"><br />Article<br /></span>Today
+                    <div className="text-8xl text-white font-semibold mb-8">
+                        Best <br />Article<br />Today
                     </div>
-                    <Link to="/articles" className="bg-white text-blue-500 rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold ">See All Articles</Link>
+                    <Link to="/articles" className="bg-[#F7EFE8] text-[#BC7E6C] rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold ">See All Articles</Link>
                 </div>
                 {loading && <p className="text-white text-2xl">Loading articles...</p>}
                 {error && <p className="text-red-300 text-2xl">{error}</p>}

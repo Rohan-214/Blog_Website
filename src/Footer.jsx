@@ -5,7 +5,7 @@ import { faCopyright as fac } from "@fortawesome/free-regular-svg-icons";
 function Footer(){
     return(
         <>
-            <div className="text-center w-full text-white py-10 text-lg bg-gradient-to-br from-blue-500 to-purple-500">
+            <div className="text-center w-full text-white py-7 text-lg bg-gradient-to-r from-[#2F5E64] to-[#BC7E6C]">
                 <FontAwesomeIcon icon={fac} /> 2022 RiseBlog. All rights reserved
             </div>
         </>
