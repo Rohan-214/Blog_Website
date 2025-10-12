@@ -47,9 +47,9 @@ function HomeFArticles() {
     console.log(article.length);
     return (
         <>
-            <div className={`flex p-30 px-100  justify-center ${article.length > 2 ? "h-screen" : "h-[88.125vh]"}  gap-10 bg-gray-200`} >
+            <div className={`flex p-30 px-100  justify-center ${article.length > 2 ? "h-screen" : "h-[90.8vh]"}  gap-10 bg-gray-200`} >
                 <div className="">
-                    <div className=" text-6xl font-bold text-blue-700">For you</div>
+                    <div className=" text-6xl font-bold text-[#2F5E64]">For you</div>
                     {/* <input className="border mt-5 px-2  rounded-full " type="text" placeholder="0, search Articles" /> */}
                     <div className="flex  gap-5 mt-5 ">
                         <button onClick={() => settopic("")} > <TopicList topic="All" /></button>
@@ -59,10 +59,10 @@ function HomeFArticles() {
                         <button onClick={() => settopic("Health")}   ><TopicList topic="Health" /></button>
                         <button onClick={() => settopic("Education")}   ><TopicList topic="Education" /></button>
                     </div>
-                    {loading && <p className="text-white text-2xl">Loading articles...</p>}
+                    {loading && <p className="text-[#2F5E64] text-2xl ">Loading articles...</p>}
                     {error && <p className="text-red-300 text-2xl">{error}</p>}
-                    {!loading && !error && article.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
-                    <div className="mt-5 flex flex-col gap-5 ">
+                    {!loading && !error && article.length === 0 && <p className="text-[#2F5E64] text-2xl">No articles found.</p>}
+                    <div className="mt-5 flex flex-col gap-5">
                         {article.map((art, ind) =>
                             <NewTopicPanel key={ind}
                                 photo={art.image}

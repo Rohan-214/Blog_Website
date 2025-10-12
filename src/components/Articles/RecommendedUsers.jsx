@@ -46,7 +46,7 @@ function RecommendedUser({ username, userphoto, userid }) {
                     <img className="w-10  h-10 border rounded-full " src={userphoto} alt="" />
                     <div className=" flex font-semibold text-lg items-center">{username}</div>
                 </div>
-                <button onClick={toggle} className={` ${isclicked ? "border-2 border-blue-700 text-blue-700" : "bg-blue-700 text-white"}  rounded-full px-8`}>{isclicked ? "Following" : "follow"}</button>
+                <button onClick={toggle} className={` ${isclicked ? "border-2 border-[#2F5E64] text-[#2F5E64]" : "bg-[#2F5E64] text-white"}  rounded-full px-8`}>{isclicked ? "Following" : "follow"}</button>
             </div>
         </>
 

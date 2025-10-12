@@ -35,7 +35,7 @@ function NewTopicPanel({photo, uploaded, title,forclass,  discription, userphoto
                                 <div className="flex flex-row-reverse  items-center gap-1 text-xl" >
                                     {/* <LikeButton/>   */}
                                 </div>
-                                <Link to={`/articles/${article_id}`} className="border bg-blue-700 text-white px-4 py-1  rounded-full ">Read More</Link>
+                                <Link to={`/articles/${article_id}`} className="border bg-[#2F5E64] text-white px-4 py-1  rounded-full ">Read More</Link>
                             </div>
                         </div>
                     </div>
