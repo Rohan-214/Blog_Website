@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import CommentsPanal from "./ComentsPanal";
 
-function MainCommentPanal({ topicPhoto, id, name, email, userPhoto, userName, topicName }) {
-
+function MainCommentPanal({ topicPhoto, id, name, email }) {
     const username = name;
-    const [userphoto, setuserphoto] = useState("");
+    // const [userphoto, setuserphoto] = useState("");
     const [comments, setComments] = useState([]);
     const emailid = email;
-
     const [content, setcontent] = useState("");
     const articleid = id;
-
-    console.log(articleid,"articleid");
-    console.log(comments, "comments");
-    console.log(emailid, "emailid");
-    console.log(username, "username");
-
-
     useEffect(() => {
         async function fetchComments() {
             try {
@@ -32,18 +23,14 @@ function MainCommentPanal({ topicPhoto, id, name, email, userPhoto, userName, to
         }
         fetchComments();
     }, [articleid]);
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const commentobj = {
             "username": username,
             "email": emailid,
             "content": content,
             "articleid": articleid,
         };
-        console.log(commentobj);
         try {
             const res = await fetch(`https://blog-website-nine-gamma.vercel.app/comments`, {
                 method: "POST",
@@ -61,12 +48,6 @@ function MainCommentPanal({ topicPhoto, id, name, email, userPhoto, userName, to
             alert("Network error.");
         }
     };
-
-
-
-
-
-
     return (
         <>
             <div className="flex flex-col bg-white rounded-2xl w-100 p-5" >
@@ -75,37 +56,17 @@ function MainCommentPanal({ topicPhoto, id, name, email, userPhoto, userName, to
                     <input className=" w-full focus:outline-none " type="text" placeholder="Enter Your Thoughts" onChange={(e) => setcontent(e.target.value)} value={content} />
                     <button type="submit" className="px-5 py-2 rounded-full ">Submit</button>
                 </form>
-                {/* <CommentsPanal
-                    userPhoto="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2017_45/2216056/171106-latinx-02-latino-1021.jpg"
-                    userName="Sam Williumson"
-                    emailId="samwilli123@gamil.com"
-                    content="The climate crisis and the environment in Central Asia Is there hope?"
-                />
-                <CommentsPanal
-                    userPhoto="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2017_45/2216056/171106-latinx-02-latino-1021.jpg"
-                    userName="Sam Williumson"
-                    emailId="samwilli123@gamil.com"
-                    content="The climate crisis and the environment in Central Asia Is there hope?"
-                />
-                <CommentsPanal
-                    userPhoto="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2017_45/2216056/171106-latinx-02-latino-1021.jpg"
-                    userName="Rohan Srivastava"
-                    emailId="srivastavaroh@gamil.com"
-                    content="The climate crisis and the environment in Central Asia Is there hope?"
-                />  */}
                 {comments.map((comment, idx) => (
                     <CommentsPanal
                         key={comment.id || idx}
                         userPhoto={comment.userphoto}
                         userName={comment.username}
-                        emailId={comment.emailid}
+                        emailId={comment.email}
                         content={comment.content}
                     />
                 ))}
             </div>
-
         </>
     )
 };
-
 export default MainCommentPanal;

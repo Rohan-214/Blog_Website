@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import MainPanal from "../Articles/MainPanal";
-import TrendingPanel from "../Articles/TrendingPanel";
-import Recommend from "../Articles/Recommend";
 import Footer from "../../Footer"
 import MainTopicPanal from "./MainTopicPanal";
 import MainCommentPanal from "./MainCommentPanel";
@@ -10,7 +8,8 @@ import { fetchArticle } from "../../services/articles.service";
 import { fetchUser } from "../../services/users.service";
 function ArticlesRootPage() {
     const { id } = useParams();
-    // const { userid } = useParams();
+    const userid = localStorage.getItem("userid");
+    const [commenteduser, setcommenteduser] = useState([])
     const [user, setuser] = useState({})
     const [article, setArticle] = useState({});
     useEffect(() => {
@@ -23,8 +22,13 @@ function ArticlesRootPage() {
                 setuser(userData);
             }
         };
+        const loadcommenteduser = async () => {
+            const commenteduserData = await fetchUser(userid);
+            setcommenteduser(commenteduserData);
+        }
+        loadcommenteduser();
         loadArticle();
-    }, [id]);
+    }, [id, userid]);
     if (!article) return <p>Loading...</p>;
     return (
         <>
@@ -33,11 +37,11 @@ function ArticlesRootPage() {
                     <MainTopicPanal />
                     {/* <TrendingPanel /> */}
                     {/* <Recommend /> */}
-                    <MainCommentPanal id={id} name ={user.name || user.username || "Unknown Author"} email = {user.email}/>
+                    <MainCommentPanal id={id} name={commenteduser.name || commenteduser.username || "Unknown Author"} email={commenteduser.email || "userid"} />
                 </div>
                 <div className="w-200 py-10">
                     <MainPanal
-                        article_id = {id}
+                        article_id={id}
                         userphoto="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2017_45/2216056/171106-latinx-02-latino-1021.jpg"
                         userName={user.name || user.username || "Unknown Author"}
                         title={article.title}
@@ -51,5 +55,4 @@ function ArticlesRootPage() {
         </>
     );
 }
-
 export default ArticlesRootPage; 

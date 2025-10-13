@@ -3,7 +3,6 @@ import LikeButton from "../Buttons/LikeButton";
 import ShareButton from "./ShareButton";
 function MainPanal({ userphoto, userName, title, publishedDetails, description, content, topicPhoto, article_id }) {
     const [isclicked, setisclicked] = useState(false)
-    console.log("here")
     const toggle = () => {
         setisclicked(!isclicked)
     }
