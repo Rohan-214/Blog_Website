@@ -48,7 +48,7 @@ function AddArticles() {
             <div className='flex gap-20 px-20 pt-20 '>
                 <div className='flex flex-col gap-10 w-1/4'>
                     <div className='bg-white rounded-2xl shadow p-5'>
-                        <div className=' pb-1 text-4xl font-semibold bg-gradient-to-tr from-blue-700 to-purple-700 bg-clip-text text-transparent'>Topic</div>
+                        <div className=' pb-1 text-4xl font-semibold text-[#2F5E64]'>Topic</div>
                         <div className='flex flex-wrap gap-5 mt-5'>
                             {topics.map(topic => (
                                 <TopicName
@@ -61,7 +61,7 @@ function AddArticles() {
                         </div>
                     </div>
                     <div className='bg-white rounded-2xl shadow p-5'>
-                        <div className=' pb-1 text-4xl font-semibold bg-gradient-to-tr from-blue-700 to-purple-700 bg-clip-text text-transparent'>Specific Topic</div>
+                        <div className=' pb-1 text-4xl font-semibold text-[#2F5E64]'>Specific Topic</div>
                         <div className='flex gap-3  bg-gray-200 shadow rounded-full px-2 py-1 mt-5'>
                             <input
                                 className=' w-full px-2 focus:outline-none'
@@ -73,7 +73,7 @@ function AddArticles() {
                         </div>
                     </div>
                     <div className='bg-white rounded-2xl shadow p-5 '>
-                        <div className=' pb-1 text-4xl font-semibold bg-gradient-to-tr from-blue-700 to-purple-700 bg-clip-text text-transparent'>Upload Image</div>
+                        <div className=' pb-1 text-4xl font-semibold text-[#2F5E64]'>Upload Image</div>
                         <div className=' flex bg-gray-200 py-1 shadow items-center mt-5 justify-between rounded-full '>
                             <input
                                 className='px-3'
@@ -86,7 +86,7 @@ function AddArticles() {
                 </div>
                 <div className='w-2/4 flex flex-col gap-10'>
                     <div className='bg-white rounded-2xl shadow p-5 mb-5'>
-                        <div className=' text-4xl font-semibold bg-gradient-to-tr from-blue-700 to-purple-700 bg-clip-text text-transparent'>Article Title</div>
+                        <div className=' text-4xl font-semibold text-[#2F5E64]'>Article Title</div>
                         <div className='flex gap-3 mt-5 bg-gray-200 shadow rounded-full px-3 py-1'>
                             <input
                                 className=' focus:outline-none w-full text-xl font-semibold'
@@ -98,7 +98,7 @@ function AddArticles() {
                         </div>
                     </div>
                     <div className='bg-white rounded-2xl shadow p-5 mb-5 flex flex-col gap-5'>
-                        <div className=' text-4xl font-semibold bg-gradient-to-tr from-blue-700 to-purple-700 bg-clip-text text-transparent' >Article Content</div>
+                        <div className=' text-4xl font-semibold text-[#2F5E64]' >Article Content</div>
                         <div className='flex gap-3 mt-5 bg-gray-200 shadow h-100 rounded-2xl px-3 py-1'>
                             <textarea
                                 className=' focus:outline-none  w-full h-full p-5 text-xl font-semibold'
@@ -113,10 +113,10 @@ function AddArticles() {
             </div>
             <div className='flex justify-around px-20 py-5'>
                 <div >
-                    <Link to="/home" className='bg-gradient-to-tr from-blue-500 to-purple-500 text-white px-5 py-2 rounded-full text-xl font-semibold'>Cancel</Link>
+                    <Link to="/home" className=' bg-[#2F5E64] text-[#F7EFE8] px-5 py-2 rounded-full text-xl font-semibold'>Cancel</Link>
                 </div>
                 <div>
-                    <button type="submit" className=' bg-gradient-to-tr from-blue-500 to-purple-500 text-white px-5 py-2 rounded-full text-xl font-semibold'>Submit</button>
+                    <button type="submit" className='  bg-[#2F5E64] text-[#F7EFE8] px-5 py-2 rounded-full text-xl font-semibold'>Submit</button>
                 </div>
             </div>
         </form>

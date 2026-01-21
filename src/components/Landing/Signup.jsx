@@ -47,7 +47,7 @@ function Signup(){
   }
 
     return(
-        <div className="bg-gray-100">
+        <div className="bg-[#F7EFE8]">
             {/* <Dotdesign />    */}
           <div class="flex justify-evenly items-center h-screen ">
             < Common 
@@ -60,7 +60,7 @@ function Signup(){
                     <input className="bg-white rounded-xl  p-1 focus:outline-none " name="email" type="email" placeholder="Email" value={user.email} onChange={(e)=>updateUser("email", e.target.value)}/>
                     <input className="bg-white rounded-xl  p-1 focus:outline-none " name="tel" type="tel" placeholder="Phone Number" value={user.tel} onChange={(e)=>updateUser("tel", e.target.value)}/>
                     <input className="bg-white rounded-xl p-1  focus:outline-none " name="pass" type="password" placeholder="password" value={user.pass} onChange={(e)=>updateUser("pass", e.target.value)}/>
-                    <button type="submit" className="bg-gradient-to-tr from-purple-600 to-blue-500 t rounded-xl p-1 text-white">Submit</button>
+                    <button type="submit" className="text-[#f7eee8] bg-[#2F5E64] rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold ">Submit</button>
               </form>
             <div className="pt-3">
               <div className="text-center">Have an account<br/>
