@@ -48,12 +48,12 @@ function Navbar({ handleLogout, isAuthenticated }) {
                             </button>
                             {showUserBox && (
                                 <div className="absolute right-0 mt-2  flex flex-col bg-white rounded-lg shadow-lg p-4 z-50">
-                                    <div className="text-gray-800 font-semibold mb-2"> ID : {userid}</div>
+                                    {/* <div className="text-gray-800 font-semibold mb-2"> ID : {userid}</div> */}
                                     <div className="text-gray-600 text-sm">{user.name}</div>
                                     <div className="text-gray-600 text-sm">{user.email}</div>
 
                                     {!isAuthenticated && (<Link to="/login" className="bg-gradient-to-tr mt-2  text-center from-purple-600 to-blue-500 rounded-xl p-1 text-white" >LogIn</Link>)}
-                                    <button className="bg-gradient-to-tr mt-2  from-purple-600 to-blue-500 rounded-xl p-1 text-white" onClick={() => logoutuser()}>Logout</button>
+                                    <button className="bg-[#2F5E64] mt-2 rounded-xl p-1 text-white" onClick={() => logoutuser()}>Logout</button>
                                 </div>
                             )}
                         </div>
