@@ -8,6 +8,7 @@ function Navbar({ handleLogout, isAuthenticated }) {
     const navigate = useNavigate();
     const location = useLocation();
     const [showUserBox, setShowUserBox] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
     
     const userid = localStorage.getItem('userid');
     const logoutuser = () => {
@@ -30,10 +31,23 @@ function Navbar({ handleLogout, isAuthenticated }) {
         loadUser();
     }, [userid]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
         <>
             <div className={` mx-auto px-4 py-3 flex justify-around fixed right-0 left-0 w-full z-50 backdrop-blur-md }`}>
-                <div className="text-4xl font-bold">RISE<span className="font-semibold text-[#2F5E64]">BLOG</span></div>
+                <div className="text-4xl font-bold">RISE<span className={`font-semibold transition-colors duration-300 ${isScrolled ? 'text-[#BC7E6C]' : 'text-[#2F5E64]'}`}>BLOG</span></div>
                 <div className="flex  gap-4 items-center text-lg font-semibold">
                     <Link className="hover:text-[#BC7E6C]" to="/home">Home</Link>
                     <Link className="hover:text-[#BC7E6C]" to="/articles">Articles</Link>
