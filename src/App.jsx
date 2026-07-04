@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import HomeSliderImages from './components/Home/HomeSliderImages';
 import HomeSlider from './components/Home/HomeSlider';
@@ -17,56 +17,86 @@ import Contact from './components/Contact/Contact';
 import ProtectedRoute from './ProtectedRoute';
 import AddArticles from './components/Home/AddArticles';
 import SessionTimeout from './components/Landing/SessionTimeout';
+import PageLoader from './components/PageLoader';
+
+function AppContent({ isAuthenticated, handleLogin, handleLogout, sessionExpired }) {
+  const location = useLocation();
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+    setPageLoading(true);
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  if (pageLoading) {
+    return <PageLoader />;
+  }
+
+  return (
+    <>
+      <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
+      <SessionTimeout timeout={24 * 60 * 1000} onTimeout={sessionExpired} />
+      <Routes>
+        <Route path='/' element={<HomeRootPage />} />
+        <Route path='/login' element={<Loginpage handleLogin={handleLogin} />} />
+        <Route path='/signup' element={<Signup />} />
+        {/*  create more routes for the paths say about us, conact */}
+        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+          <Route path="/articles" element={<HomeFArticles />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/home" element={<HomeRootPage />} />
+          <Route path="/articles/:id" element={<ArticlesRootPage />} />
+          <Route path="/addArticles" element={<AddArticles />} />
+        </Route>
+      </Routes>
+    </>
+  );
+}
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem('isAuthh') === 'true';
   });
+
   useEffect(() => {
     const handleStorageChange = () => {
       setIsAuthenticated(localStorage.getItem('isAuthh') === 'true');
-  };
-  window.addEventListener('storage', handleStorageChange);
-  return () => {
-    window.removeEventListener('storage', handleStorageChange);
-  };
-}, []);
+    };
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   const handleLogin = () => {
     setIsAuthenticated(true);
     localStorage.setItem('isAuthh', 'true');
   };
+
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
 
-   const sessionExpired = () => {
+  const sessionExpired = () => {
     alert("Session expired! Logging out...");
-    // clear user data
     localStorage.clear();
-    // redirect
     window.location.href = "/login";
   };
+
   return (
-    <>
-      <HashRouter>
-        <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
-        <SessionTimeout timeout={24 * 60 * 1000} onTimeout={sessionExpired} /> 
-        <Routes>
-          <Route path='/' element={<HomeRootPage />} />
-          <Route path='/login' element={<Loginpage handleLogin={handleLogin} />} />
-          <Route path='/signup' element={<Signup />} />
-          {/*  create more routes for the paths say about us, conact */}
-          <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
-            <Route path="/articles" element={<HomeFArticles />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/home" element={<HomeRootPage />} />
-            <Route path="/articles/:id" element={<ArticlesRootPage />} />
-            <Route path="/addArticles" element={<AddArticles />} />
-          </Route>
-        </Routes>
-      </HashRouter>
-    </>
+    <HashRouter>
+      <AppContent
+        isAuthenticated={isAuthenticated}
+        handleLogin={handleLogin}
+        handleLogout={handleLogout}
+        sessionExpired={sessionExpired}
+      />
+    </HashRouter>
   );
 }
+
 export default App

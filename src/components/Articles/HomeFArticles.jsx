@@ -22,21 +22,21 @@ function HomeFArticles() {
                 setloading(true);
                 setError(null);
                 const articleData = await fetchAllArticles(topic);
-                setArticle(articleData)
+                setArticle(articleData);
+
                 const uData = await fetchAllUsers();
-                console.log(uData);
-                setalluser(uData)
+                setalluser(uData);
                 const filtered = uData.filter(u => u._id !== currentuserid);
                 setfilteredId(filtered);
-                const uniqueUserIds = [...new Set
-                    (articleData
+                const uniqueUserIds = [...new Set(
+                    articleData
                         .map(a => a.userid)
                         .filter(Boolean)
-                    )];
-                const usersData = {};
-                for (let id of uniqueUserIds) {
-                    usersData[id] = await fetchUser(id);
-                }
+                )];
+                const usersDataEntries = await Promise.all(
+                    uniqueUserIds.map(async (id) => [id, await fetchUser(id)])
+                );
+                const usersData = Object.fromEntries(usersDataEntries);
                 setuser(usersData);
                 setloading(false);
             } catch (error) {

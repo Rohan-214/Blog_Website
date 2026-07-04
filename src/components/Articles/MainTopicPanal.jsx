@@ -2,41 +2,41 @@ import { useEffect, useState } from "react";
 import TopicsPanel from "../Articles/TopicsPanal"; 
 import { fetchFirstFourArticles } from "../../services/articles.service";
 import { fetchUser } from "../../services/users.service";
-function MainTopicPanal({ topicPhoto, content, userPhoto, userName, topicName }) {
+function MainTopicPanal({ onReady }) {
     const [articles, setarticles] = useState([]);
-        const [user, setuser] = useState({});
-        const [loading, setLoading] = useState(true);
-        const [error, setError] = useState(null);
-        useEffect(() => {
-            const loadArticle = async () => {
-                try {
-                    setLoading(true);
-                    setError(null);
-                    const articleData = await fetchFirstFourArticles();
-                    //console.log(fetchFirstFourArticles())
-                    if (articleData) {
-                        setarticles(articleData);
-                        if (articleData.length > 0) {
-                            const uniqueUserIds = [...new Set(articleData.map(a => a.userid).filter(Boolean))];
-                            const usersData = {};
-                            for (let id of uniqueUserIds) {
-                                usersData[id] = await fetchUser(id);
-                            }
-                            setuser(usersData);
+    const [user, setuser] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const loadArticle = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const articleData = await fetchFirstFourArticles();
+                if (articleData) {
+                    setarticles(articleData);
+                    if (articleData.length > 0) {
+                        const uniqueUserIds = [...new Set(articleData.map(a => a.userid).filter(Boolean))];
+                        const usersData = {};
+                        for (let id of uniqueUserIds) {
+                            usersData[id] = await fetchUser(id);
                         }
-                    } else {
-                        // This case handles when the service returns null (e.g., on a 404 or network error)
-                        setError("Could not fetch articles. The server might be down or the endpoint is not found.");
+                        setuser(usersData);
                     }
-                } catch (error) {
-                    console.error("Failed to load articles:", error);
-                    setError("An unexpected error occurred while loading articles.");
-                } finally {
-                    setLoading(false);
+                } else {
+                    setError("Could not fetch articles. The server might be down or the endpoint is not found.");
                 }
-            };
-            loadArticle();
-        }, []);
+            } catch (error) {
+                console.error("Failed to load articles:", error);
+                setError("An unexpected error occurred while loading articles.");
+            } finally {
+                setLoading(false);
+                onReady?.();
+            }
+        };
+        loadArticle();
+    }, [onReady]);
     
     return(
         <>
