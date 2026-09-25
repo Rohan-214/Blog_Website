@@ -42,7 +42,7 @@ function MainTopicPanal({ onReady }) {
         <>
         <div className="text-5xl font-bold  py-2 text-[#2F5E64]" >For you</div>
             {/* <input className="bg-gray-300 rounded-full focus:outline-none  pl-5 py-2 " type="text"  placeholder="Search Articles..."  /> */}
-                <div className="flex flex-col gap-3  w-100">
+                <div className="flex w-full flex-col gap-3">
                     {/* <TopicsPanel 
                         topicPhoto="https://image.cnbcfm.com/api/v1/image/107159087-1669826392218-gettyimages-1237155972-porzycki-neuralin211210_npAXF.jpeg?v=1685061729&w=1920&h=1080"
                         content="The climate crisis and the environment in Central Asia Is there hope?"

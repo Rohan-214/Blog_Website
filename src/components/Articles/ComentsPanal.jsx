@@ -3,13 +3,13 @@ function CommentsPanal({ userPhoto, userName, emailId, content }) {
     return (
         <>
             <div className="flex flex-col mt-3 gap-3">
-                <div className="bg-gray-300 rounded-2xl w-90 p-2">
-                    <div className="flex justify-between ">
-                        <div className="flex">
+                <div className="w-full overflow-hidden rounded-2xl bg-gray-300 p-2">
+                    <div className="flex flex-wrap justify-between gap-2">
+                        <div className="flex min-w-0">
                             <img className="w-7 h-7 rounded-full " src={"some text"} />
                             <div className="text-sm  font-semibold " >{userName}</div>
                         </div>
-                        <div className="text-sm">{emailId}</div>
+                        <div className="max-w-full break-all text-sm">{emailId}</div>
                     </div>
                     <div>{content}</div>
                     <div className="flex justify-end gap-5">

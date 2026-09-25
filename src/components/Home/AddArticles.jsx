@@ -44,9 +44,9 @@ function AddArticles() {
         }
     };
     return (
-        <form className='bg-gray-200 h-screen flex flex-col' onSubmit={handleSubmit}>
-            <div className='flex gap-20 px-20 pt-20 '>
-                <div className='flex flex-col gap-10 w-1/4'>
+        <form className='flex min-h-screen flex-col bg-gray-200 px-4 py-24 sm:px-8' onSubmit={handleSubmit}>
+            <div className='flex flex-col gap-8 lg:flex-row lg:gap-12'>
+                <div className='flex w-full flex-col gap-8 lg:w-1/3'>
                     <div className='bg-white rounded-2xl shadow p-5'>
                         <div className=' pb-1 text-4xl font-semibold text-[#2F5E64]'>Topic</div>
                         <div className='flex flex-wrap gap-5 mt-5'>
@@ -84,7 +84,7 @@ function AddArticles() {
                         </div>
                     </div>
                 </div>
-                <div className='w-2/4 flex flex-col gap-10'>
+                <div className='flex w-full flex-col gap-8 lg:w-2/3'>
                     <div className='bg-white rounded-2xl shadow p-5 mb-5'>
                         <div className=' text-4xl font-semibold text-[#2F5E64]'>Article Title</div>
                         <div className='flex gap-3 mt-5 bg-gray-200 shadow rounded-full px-3 py-1'>
@@ -99,7 +99,7 @@ function AddArticles() {
                     </div>
                     <div className='bg-white rounded-2xl shadow p-5 mb-5 flex flex-col gap-5'>
                         <div className=' text-4xl font-semibold text-[#2F5E64]' >Article Content</div>
-                        <div className='flex gap-3 mt-5 bg-gray-200 shadow h-100 rounded-2xl px-3 py-1'>
+                        <div className='mt-5 flex min-h-80 gap-3 rounded-2xl bg-gray-200 px-3 py-1 shadow sm:min-h-96'>
                             <textarea
                                 className=' focus:outline-none  w-full h-full p-5 text-xl font-semibold'
                                 placeholder="Write your article here"
@@ -111,7 +111,7 @@ function AddArticles() {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-around px-20 py-5'>
+            <div className='flex justify-center gap-6 px-2 py-8 sm:justify-between sm:px-8'>
                 <div >
                     <Link to="/home" className=' bg-[#2F5E64] text-[#F7EFE8] px-5 py-2 rounded-full text-xl font-semibold'>Cancel</Link>
                 </div>

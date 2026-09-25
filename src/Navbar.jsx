@@ -46,8 +46,8 @@ function Navbar({ handleLogout, isAuthenticated }) {
 
     return (
         <>
-            <div className="mx-auto px-4 py-3 flex justify-between items-center fixed right-0 left-0 w-full z-50 backdrop-blur-md">
-                <div className="text-4xl font-bold">RISE<span className={`font-semibold transition-colors duration-300 ${isScrolled ? 'text-[#BC7E6C]' : 'text-[#2F5E64]'}`}>BLOG</span></div>
+            <div className="fixed left-0 right-0 z-50 mx-auto flex w-full items-center justify-between px-4 py-3 backdrop-blur-md sm:px-6">
+                <div className="text-3xl font-bold sm:text-4xl">RISE<span className={`font-semibold transition-colors duration-300 ${isScrolled ? 'text-[#BC7E6C]' : 'text-[#2F5E64]'}`}>BLOG</span></div>
                 <button
                     type="button"
                     className="sm:hidden text-2xl"
@@ -57,7 +57,7 @@ function Navbar({ handleLogout, isAuthenticated }) {
                 >
                     <FontAwesomeIcon icon={showNavLinks ? faClose : faBars} />
                 </button>
-                <div className={`${showNavLinks ? "flex" : "hidden"} sm:flex absolute sm:static top-full right-0 sm:right-auto bg-transparent p-4 sm:p-0 flex-col sm:flex-row gap-4 items-end sm:items-center text-right text-lg font-semibold shadow-none sm:ml-auto w-max max-w-[calc(100vw-2rem)]`}>
+                <div className={`${showNavLinks ? "flex" : "hidden"} md:flex absolute md:static top-full right-0 md:right-auto bg-transparent p-4 md:p-0 flex-col md:flex-row gap-4 items-end md:items-center text-right text-lg font-semibold shadow-none md:ml-auto w-max max-w-[calc(100vw-2rem)]`}>
                     <Link onClick={() => setShowNavLinks(false)} className="hover:text-[#BC7E6C]" to="/home">Home</Link>
                     <Link onClick={() => setShowNavLinks(false)} className="hover:text-[#BC7E6C]" to="/articles">Articles</Link>
                     <Link onClick={() => setShowNavLinks(false)} className="hover:text-[#BC7E6C]" to="/about">About</Link>
@@ -75,7 +75,7 @@ function Navbar({ handleLogout, isAuthenticated }) {
                                     <div className="text-gray-600 text-sm">{user.name}</div>
                                     <div className="text-gray-600 text-sm">{user.email}</div>
 
-                                    {!isAuthenticated && (<Link to="/login" className="bg-gradient-to-tr mt-2  text-center from-purple-600 to-blue-500 rounded-xl p-1 text-white" >LogIn</Link>)}
+                                    {!isAuthenticated && (<Link to="/login" className="bg-linear-to-tr mt-2 text-center from-purple-600 to-blue-500 rounded-xl p-1 text-white" >LogIn</Link>)}
                                     <button className="bg-[#2F5E64] mt-2 rounded-xl p-1 text-white" onClick={() => logoutuser()}>Logout</button>
                                 </div>
                             )}

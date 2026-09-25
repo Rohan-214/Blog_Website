@@ -29,9 +29,9 @@ function Contact() {
     };
 
     return (
-        <div className="h-screen flex items-center bg-gray-200 justify-center" >
-            <div className="bg-white flex flex-col p-8 rounded-3xl " >
-                <h1 className="text-3xl w-120 font-bold text-center text-[#2F5E64]  ">Contact Us</h1>
+        <div className="flex min-h-screen items-center justify-center bg-gray-200 px-4 py-24 sm:px-8" >
+            <div className="flex w-full max-w-xl flex-col rounded-3xl bg-white p-6 sm:p-8" >
+                <h1 className="text-center text-3xl font-bold text-[#2F5E64]">Contact Us</h1>
                 <form className="" onSubmit={onSubmit}>
                     <input type="email" name="email" required placeholder="Your email" className="mt-4 block w-full p-2 border border-gray-300 rounded-md " />
                     <input type="text" name="name" required placeholder="Your Name" className="mt-4 block w-full p-2 border border-gray-300 rounded-md " />

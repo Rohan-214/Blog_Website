@@ -41,12 +41,12 @@ function RecommendedUser({ username, userphoto, userid }) {
 
     return (
         <>
-            <div className="flex justify-between h-full">
-                <div className="flex h-full gap-2 ">
-                    <img className="w-10  h-10 border rounded-full " src={userphoto} alt="" />
-                    <div className=" flex font-semibold text-lg items-center">{username}</div>
+            <div className="flex min-w-0 items-center justify-between gap-3">
+                <div className="flex min-w-0 items-center gap-2">
+                    <img className="size-10 shrink-0 rounded-full border object-cover" src={userphoto} alt="" />
+                    <div className="min-w-0 truncate text-base font-semibold">{username}</div>
                 </div>
-                <button onClick={toggle} className={` ${isclicked ? "border-2 border-[#2F5E64] text-[#2F5E64]" : "bg-[#2F5E64] text-white"}  rounded-full px-8`}>{isclicked ? "Following" : "follow"}</button>
+                <button onClick={toggle} className={`shrink-0 rounded-full px-3 py-2 text-sm ${isclicked ? "border-2 border-[#2F5E64] text-[#2F5E64]" : "bg-[#2F5E64] text-white"}`}>{isclicked ? "Following" : "Follow"}</button>
             </div>
         </>
 

@@ -60,11 +60,11 @@ function HomeFArticles() {
     console.log(article.length);
     return (
         <>
-            <div className={`flex p-20 px-100  justify-center ${article.length > 2 ? "h-screen" : "h-[90.8vh]"}  gap-10 bg-gray-200`} >
-                <div className="">
+            <div className="flex min-h-screen flex-col gap-10 bg-gray-200 px-4 py-24 sm:px-8 lg:flex-row lg:justify-center lg:px-12" >
+                <div className="w-full max-w-4xl">
                     <div className=" text-5xl font-bold text-[#2F5E64]">For you</div>
                     {/* <input className="border mt-5 px-2  rounded-full " type="text" placeholder="0, search Articles" /> */}
-                    <div className="flex  gap-5 mt-5 ">
+                    <div className="mt-5 flex flex-wrap gap-3">
                         <button onClick={() => settopic("")} > <TopicList topic="All" /></button>
                         <button onClick={() => settopic("Technology")} ><TopicList topic="Technology" /></button>
                         <button onClick={() => settopic("Lifestyle")}  ><TopicList topic="Lifestyle" /></button>
@@ -125,9 +125,9 @@ function HomeFArticles() {
                         </div>
                     )}
                 </div>
-                <div>
-                    <div className=" rounded-2xl p-5 bg-white  flex flex-col gap-5 mt-32  w-120">
-                        <div className=" text-2xl font-semibold">Users</div>
+                <div className="hidden w-full shrink-0 lg:mt-32 lg:flex lg:w-80 xl:w-96">
+                    <div className="flex max-h-[calc(100vh-12rem)] min-h-48 w-full flex-col gap-4 overflow-y-auto rounded-2xl bg-white p-4 shadow-sm sm:p-5">
+                        <div className="text-2xl font-semibold text-[#2F5E64]">Users</div>
                         {filteredId.map((user, ind) =>
                         (<RecommendedUser
                             key={ind}

@@ -60,7 +60,7 @@ function MainCommentPanal({ topicPhoto, id, name, email, onReady }) {
 
     return (
         <>
-            <div className="flex flex-col bg-white rounded-2xl w-100 p-5">
+            <div className="flex w-full flex-col rounded-2xl bg-white p-5">
                 <div className="text-2xl font-semibold">Comments</div>
                 <form onSubmit={handleSubmit} className="flex bg-gray-300 rounded-full mt-2 pl-5">
                     <input className="w-full focus:outline-none" type="text" placeholder="Enter Your Thoughts" onChange={(e) => setcontent(e.target.value)} value={content} />

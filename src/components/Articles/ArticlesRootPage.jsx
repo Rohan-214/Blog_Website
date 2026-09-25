@@ -59,7 +59,8 @@ function ArticlesRootPage() {
     }, [id, userid]);
 
     useEffect(() => {
-        if (!loading && (error || (article && topicsReady && commentsReady))) {
+        const panelsVisible = window.innerWidth >= 1024;
+        if (!loading && (error || (article && (!panelsVisible || (topicsReady && commentsReady))))) {
             setPageLoading(false);
         }
     }, [loading, article, error, topicsReady, commentsReady]);
@@ -76,8 +77,8 @@ function ArticlesRootPage() {
                     {!loading && !article && error && <p className="text-center text-xl text-[#2F5E64]">{error}</p>}
                     {article && (
                         <>
-                            <div className="flex gap-50 p-20 bg-gray-200">
-                                <div className="p-10 flex flex-col gap-5 w-100">
+                            <div className="flex flex-col gap-8 bg-gray-200 px-4 py-24 sm:px-8 lg:flex-row lg:gap-12 lg:px-12">
+                                <div className="hidden w-full max-w-xl flex-col gap-5 lg:flex lg:w-1/3 lg:max-w-sm lg:p-4">
                                     <MainTopicPanal onReady={handleTopicsReady} />
                                     <MainCommentPanal
                                         id={id}
@@ -86,7 +87,7 @@ function ArticlesRootPage() {
                                         onReady={handleCommentsReady}
                                     />
                                 </div>
-                                <div className="w-200 py-10">
+                                <div className="w-full min-w-0 py-2 lg:w-2/3 lg:py-10">
                                     <MainPanal
                                         article_id={id}
                                         userphoto="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2017_45/2216056/171106-latinx-02-latino-1021.jpg"
