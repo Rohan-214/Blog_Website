@@ -39,27 +39,31 @@ function BestArticles() {
         loadArticle();
     }, []);
     return (
-        <div className="flex justify-center  h-screen items-center bg-[#2F5E64]">
-            <div className="flex gap-5">
-                <div>
-                    <div className="text-8xl text-white font-semibold mb-8">
+        <div className="flex min-h-screen items-center bg-[#2F5E64] px-5 py-16 sm:px-8 lg:px-12">
+            <div className="mx-auto flex w-full max-w-360 flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+                <div className="shrink-0 lg:w-[22%]">
+                    <div className="mb-8 text-5xl font-semibold leading-[0.95] text-white sm:text-6xl lg:text-7xl">
                         Best <br />Article<br />Today
                     </div>
-                    <Link to="/articles" className="bg-[#F7EFE8] text-[#BC7E6C] rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold ">See All Articles</Link>
                 </div>
-                {loading && <p className="text-white text-2xl">Loading articles...</p>}
-                {error && <p className="text-red-300 text-2xl">{error}</p>}
-                {!loading && !error && articles.length === 0 && <p className="text-white text-2xl">No articles found.</p>}
-                {!loading && !error && articles.map((article) =>
-                    <BestArticlesTopic
-                        key={article._id}
-                        photo={article.image}
-                        uploadTime={article.time}
-                        title={article.title}
-                        description={article.content}
-                        id={article._id}
-                    />
-                )}
+                <div className="flex w-full max-w-6xl flex-col gap-8 lg:w-[78%]">
+                    <div className="grid w-full grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                        {loading && <p className="text-white text-2xl sm:col-span-2">Loading articles...</p>}
+                        {error && <p className="text-red-300 text-2xl sm:col-span-2">{error}</p>}
+                        {!loading && !error && articles.length === 0 && <p className="text-white text-2xl sm:col-span-2">No articles found.</p>}
+                        {!loading && !error && articles.map((article) =>
+                            <BestArticlesTopic
+                                key={article._id}
+                                photo={article.image}
+                                uploadTime={article.time}
+                                title={article.title}
+                                description={article.content}
+                                id={article._id}
+                            />
+                        )}
+                    </div>
+                    <Link to="/articles" className="self-center rounded-full bg-[#F7EFE8] px-12 py-4 text-[#BC7E6C] hover:font-semibold hover:shadow-2xl lg:self-end">See All Articles</Link>
+                </div>
             </div>
         </div>
     );
