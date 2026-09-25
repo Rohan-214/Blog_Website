@@ -47,15 +47,15 @@ function Signup(){
   }
 
     return(
-        <div className="bg-[#F7EFE8]">
+        <div className="bg-[#F7EFE8] min-h-screen">
             {/* <Dotdesign />    */}
-          <div class="flex justify-evenly items-center h-screen ">
+          <div className="flex flex-col lg:flex-row justify-center lg:justify-evenly items-center min-h-screen gap-8 px-6 py-24 lg:px-8">
             < Common 
               title1="Signup to Your"  
               title2="Acount"  
             />    
-            <div className="">  
-              <form onSubmit={handleSingnup} className="flex flex-col pt-5 gap-3 w-80 ">
+            <div className="w-full max-w-80">  
+              <form onSubmit={handleSingnup} className="flex flex-col pt-5 gap-3 w-full ">
                     <input className="bg-white rounded-xl  p-1 focus:outline-none " name="uname" type="text" placeholder="Name" value={user.uname} onChange={(e)=>updateUser("uname", e.target.value)}/>
                     <input className="bg-white rounded-xl  p-1 focus:outline-none " name="email" type="email" placeholder="Email" value={user.email} onChange={(e)=>updateUser("email", e.target.value)}/>
                     <input className="bg-white rounded-xl  p-1 focus:outline-none " name="tel" type="tel" placeholder="Phone Number" value={user.tel} onChange={(e)=>updateUser("tel", e.target.value)}/>
