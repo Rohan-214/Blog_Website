@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Common from "./Common";
 import { Link,  useNavigate } from "react-router-dom";
-import HomeRootPage from "../Home/HomeRootPage";
 
 
 function Loginpage({handleLogin}){
 
-  
-  // const [User, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const Navigate = useNavigate();
 
     useEffect(() => {
@@ -20,25 +19,39 @@ function Loginpage({handleLogin}){
 
   const handleLoginUtil = async (e) => {
     e.preventDefault();
-    const usersRes = await fetch(`https://blog-website-nine-gamma.vercel.app/users`);
-    const users = await usersRes.json();
-    const user = users.find(u => u.email === email && u.password === pass);
+    setError("");
+    setIsSubmitting(true);
 
-    if (user) {
-      const userid = user._id;
-      console.log(userid);
-      localStorage.setItem('userid', userid);
-      localStorage.setItem('isAuthh', true);
+    try {
+      const response = await fetch("https://blog-website-nine-gamma.vercel.app/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), password: pass }),
+      });
 
+      if (response.status === 401) {
+        setError("Invalid email or password.");
+        return;
+      }
+      if (!response.ok) {
+        throw new Error(`Login request failed (${response.status}).`);
+      }
 
-      alert("Login successful!"); 
+      const { userid } = await response.json();
+      if (!userid) {
+        throw new Error("The login response did not include a user ID.");
+      }
+
+      localStorage.setItem("userid", userid);
+      localStorage.setItem("isAuthh", "true");
       if (handleLogin) handleLogin();
-      Navigate ("/home"); // Redirect to Home page after successful login
-      // You can redirect or set auth state here
-    } else {
-      alert("Invalid email or password.");
+      Navigate("/home");
+    } catch (loginError) {
+      console.error("Login failed:", loginError);
+      setError("Could not log in right now. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
     }
-
   };
   
     return(
@@ -51,9 +64,10 @@ function Loginpage({handleLogin}){
             />    
             <div className="w-full max-w-80">  
               <form onSubmit={handleLoginUtil} className="flex flex-col pt-5 gap-3 w-full ">
-                    <input className="bg-white rounded-xl  p-1 focus:outline-none "    type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-                    <input className="bg-white rounded-xl p-1  focus:outline-none "    type="password" placeholder="password" value={pass} onChange={e => setPass(e.target.value)}  />
-                    <button type="submit" className="text-[#f7eee8] bg-[#2F5E64] rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold " >Submit</button>
+                    <input className="bg-white rounded-xl  p-1 focus:outline-none " name="email" autoComplete="email" required type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+                    <input className="bg-white rounded-xl p-1  focus:outline-none " name="password" autoComplete="current-password" required type="password" placeholder="password" value={pass} onChange={e => setPass(e.target.value)}  />
+                    {error && <p role="alert" className="text-red-700">{error}</p>}
+                    <button type="submit" disabled={isSubmitting} className="text-[#f7eee8] bg-[#2F5E64] rounded-full px-12 py-4 mt-5 hover:shadow-2xl hover:font-semibold disabled:cursor-not-allowed disabled:opacity-60" >{isSubmitting ? "Logging in..." : "Submit"}</button>
               </form>
             <div className="pt-3">
               <div className="text-center">Don't have an account<br/>

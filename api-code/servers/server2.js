@@ -60,16 +60,41 @@ app.post('/users', async (req, res) => {
     try {
         const user = new User(req.body);
         const newUser = await user.save();
-        res.status(201).send(newUser);
+        res.status(201).send({
+            _id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+            phone_number: newUser.phone_number,
+            user_image: newUser.user_image
+        });
     } catch (error) {
         res.status(400).send({ error: error.message });
+    }
+});
+
+app.post('/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (typeof email !== 'string' || typeof password !== 'string' || !email.trim() || !password) {
+            return res.status(400).json({ error: 'Email and password are required.' });
+        }
+
+        const user = await User.findOne({ email: email.trim() });
+        if (!user || user.password !== password) {
+            return res.status(401).json({ error: 'Invalid email or password.' });
+        }
+
+        res.status(200).json({ userid: user._id });
+    } catch (error) {
+        console.error('Login request failed:', error);
+        res.status(500).json({ error: 'Unable to log in right now.' });
     }
 });
 
 // READ all users
 app.get('/users', async (req, res) => {
     try {
-        const users = await User.find({});
+        const users = await User.find({}).select('-password');
         res.status(200).send(users);
     } catch (error) {
         res.status(500).send({ error: error.message });
@@ -79,7 +104,7 @@ app.get('/users', async (req, res) => {
 // GET a single user by ID
 app.get('/users/:id', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findById(req.params.id).select('-password');
         if (!user) return res.status(404).send({ error: "User not found" });
         res.status(200).send(user);
     } catch (error) {
